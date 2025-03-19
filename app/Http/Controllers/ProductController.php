@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use function Psy\debug;
 
 class ProductController extends Controller
 {
@@ -10,18 +14,17 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-        // $product = "IPhone Titan";
-        $products = [
-           [
-            'name' => 'IPHone Tian',
-            'price' => 99000
-           ]
-        ];
+    {
+        // $products = DB::table('products')->where('id', '=', 1)->get(); // lay theo id 
+        // $products = DB::table('products')->get(); // foreach dung get de lay het
+        // $products = DB::table('products')->first(); //dung de lay 1 dong
+        $products = Product::orderBy('id', 'DESC')->get();
+
         return view('product', compact('products'));
     }
 
-    public function addProduct(){
+    public function create()
+    {
 
         return view('product-add');
     }
@@ -31,15 +34,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+        ]);
+
+        $product = new Product;
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+        $product->stock = $request->input('stock');
+        $product->save();
+
+        return redirect()->route('products')->with('success', 'Thêm sản phẩm thành công');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function edit(string $id)
     {
-        //
+
+        $product = (new Product)->find($id);
+        return view('product-edit', compact('product'));
     }
 
     /**
@@ -47,7 +65,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+        ]);
+
+        $product = (new Product)->find($id);
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+        $product->stock = $request->input('stock');
+        $product->save();
+
+        if ($product->save()) {
+            return redirect()->route('products')->with('success', 'Sua sản phẩm thành công');
+        }
+        // return redirect()->route('product.add')->with('error', 'vui long dien day du thong tin!');
     }
 
     /**
@@ -55,6 +89,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->route('products')->with('success', 'Xoa sản phẩm thành công');
     }
 }

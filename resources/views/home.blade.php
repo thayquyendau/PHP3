@@ -9,7 +9,9 @@
 <body>
     <h1>Day la trang chu</h1>
     <a href="/user">Xem nguoi dung</a>
-    <a href="/product">Xem san pham</a>
+    {{-- <a href="/product">Xem san pham</a>
+     --}}
+     <a href="{{ route('products')}}">Ql products</a>
    
 </body>
 </html>
