@@ -1,0 +1,203 @@
+                                --Giải thích các bảng trong database của bạn--
+    + cache, cache_locks → Lưu thông tin cache để tối ưu hiệu suất.
+    + failed_jobs → Lưu trữ các job bị lỗi trong queue của Laravel.
+    + jobs, job_batches → Lưu thông tin về các job đang chạy (nếu bạn dùng queue trong Laravel).
+    + migrations → Ghi lại lịch sử migration đã chạy (Laravel dùng để quản lý thay đổi database).
+    + password_reset_tokens → Lưu token reset mật khẩu của người dùng.
+    + sessions → Lưu dữ liệu phiên đăng nhập của user (nếu bạn dùng session database).
+    + users → Bảng chứa thông tin người dùng trong hệ thống.
+
+                             -- Cac chi muc tao cot --
+    $table->bigIncrements('column')
+Khóa chính tự tăng kiểu BIGINT UNSIGNED.
+Ví dụ: $table->bigIncrements('id');
+
+$table->bigInteger('column')
+Số nguyên lớn (BIGINT).
+Ví dụ: $table->bigInteger('votes');
+
+$table->binary('column')
+Dữ liệu nhị phân (BLOB).
+Ví dụ: $table->binary('data');
+
+$table->boolean('column')
+Giá trị logic (TINYINT, 0 hoặc 1).
+Ví dụ: $table->boolean('active');
+
+$table->char('column', length)
+Chuỗi ký tự độ dài cố định.
+Ví dụ: $table->char('code', 4);
+ (độ dài 4)
+$table->date('column')
+Ngày (DATE).
+Ví dụ: $table->date('birthday');
+
+$table->dateTime('column')
+Ngày và giờ (DATETIME).
+Ví dụ: $table->dateTime('last_login');
+
+$table->dateTimeTz('column')
+Ngày và giờ kèm múi giờ (DATETIME với timezone).
+Ví dụ: $table->dateTimeTz('event_time');
+
+$table->decimal('column', total, places)
+Số thập phân chính xác.
+Ví dụ: $table->decimal('price', 8, 2);
+ (8 chữ số, 2 sau dấu chấm)
+$table->double('column', total, places)
+Số thực dấu phẩy động.
+Ví dụ: $table->double('score', 8, 2);
+
+$table->enum('column', ['value1', 'value2'])
+Danh sách giá trị cố định.
+Ví dụ: $table->enum('status', ['active', 'inactive']);
+
+$table->float('column', total, places)
+Số thực dấu phẩy động nhỏ.
+Ví dụ: $table->float('rate', 8, 2);
+
+$table->increments('column')
+Khóa chính tự tăng kiểu INTEGER UNSIGNED.
+Ví dụ: $table->increments('id');
+
+$table->integer('column')
+Số nguyên (INTEGER).
+Ví dụ: $table->integer('quantity');
+
+$table->json('column')
+Dữ liệu JSON.
+Ví dụ: $table->json('options');
+
+$table->jsonb('column')
+Dữ liệu JSON nhị phân (hỗ trợ PostgreSQL).
+Ví dụ: $table->jsonb('metadata');
+
+$table->longText('column')
+Văn bản dài (LONGTEXT).
+Ví dụ: $table->longText('content');
+
+$table->mediumIncrements('column')
+Khóa chính tự tăng kiểu MEDIUMINT UNSIGNED.
+Ví dụ: $table->mediumIncrements('id');
+
+$table->mediumInteger('column')
+Số nguyên trung bình (MEDIUMINT).
+Ví dụ: $table->mediumInteger('views');
+
+$table->mediumText('column')
+Văn bản trung bình (MEDIUMTEXT).
+Ví dụ: $table->mediumText('summary');
+
+$table->smallIncrements('column')
+Khóa chính tự tăng kiểu SMALLINT UNSIGNED.
+Ví dụ: $table->smallIncrements('id');
+
+$table->smallInteger('column')
+Số nguyên nhỏ (SMALLINT).
+Ví dụ: $table->smallInteger('age');
+
+$table->string('column', length)
+Chuỗi ký tự (VARCHAR), mặc định 255 ký tự.
+Ví dụ: $table->string('name', 100);
+
+$table->text('column')
+Văn bản (TEXT).
+Ví dụ: $table->text('description');
+
+$table->time('column')
+Giờ (TIME).
+Ví dụ: $table->time('start_time');
+
+$table->timeTz('column')
+Giờ kèm múi giờ (TIME với timezone).
+Ví dụ: $table->timeTz('local_time');
+
+$table->timestamp('column')
+Dấu thời gian (TIMESTAMP).
+Ví dụ: $table->timestamp('published_at');
+
+$table->timestampTz('column')
+Dấu thời gian kèm múi giờ (TIMESTAMP với timezone).
+Ví dụ: $table->timestampTz('updated_at');
+
+$table->tinyIncrements('column')
+Khóa chính tự tăng kiểu TINYINT UNSIGNED.
+Ví dụ: $table->tinyIncrements('id');
+
+$table->tinyInteger('column')
+Số nguyên nhỏ (TINYINT).
+Ví dụ: $table->tinyInteger('level');
+
+$table->unsignedBigInteger('column')
+Số nguyên lớn không âm (BIGINT UNSIGNED).
+Ví dụ: $table->unsignedBigInteger('user_id');
+
+$table->unsignedInteger('column')
+Số nguyên không âm (INTEGER UNSIGNED).
+Ví dụ: $table->unsignedInteger('count');
+
+$table->unsignedMediumInteger('column')
+Số nguyên trung bình không âm (MEDIUMINT UNSIGNED).
+Ví dụ: $table->unsignedMediumInteger('stock');
+
+$table->unsignedSmallInteger('column')
+Số nguyên nhỏ không âm (SMALLINT UNSIGNED).
+Ví dụ: $table->unsignedSmallInteger('priority');
+
+$table->unsignedTinyInteger('column')
+Số nguyên rất nhỏ không âm (TINYINT UNSIGNED).
+Ví dụ: $table->unsignedTinyInteger('rank');
+
+$table->uuid('column')
+Chuỗi UUID (Universally Unique Identifier).
+Ví dụ: $table->uuid('unique_id');
+
+Các kiểu cột không gian (Spatial Column Types):
+(Thường dùng với MySQL hoặc PostgreSQL hỗ trợ GIS)
+
+$table->geometry('column')
+Dữ liệu hình học tổng quát.
+Ví dụ: $table->geometry('shape');
+
+$table->point('column')
+Điểm (tọa độ x, y).
+Ví dụ: $table->point('location');
+
+$table->lineString('column')
+Đường thẳng gồm nhiều điểm.
+Ví dụ: $table->lineString('path');
+
+$table->polygon('column')
+Đa giác.
+Ví dụ: $table->polygon('area');
+
+$table->multiPoint('column')
+Tập hợp nhiều điểm.
+Ví dụ: $table->multiPoint('points');
+
+$table->multiLineString('column')
+Tập hợp nhiều đường thẳng.
+Ví dụ: $table->multiLineString('routes');
+
+$table->multiPolygon('column')
+Tập hợp nhiều đa giác.
+Ví dụ: $table->multiPolygon('zones');
+
+$table->geometryCollection('column')
+Tập hợp các đối tượng hình học.
+Ví dụ: $table->geometryCollection('shapes');
+
+Các phương thức bổ sung (Modifiers):
+Ngoài các kiểu cột, bạn có thể thêm các thuộc tính bổ sung:
+
+$table->column()->nullable(): Cho phép giá trị NULL.
+Ví dụ: $table->string('middle_name')->nullable();
+
+$table->column()->default(value): Giá trị mặc định.
+Ví dụ: $table->integer('status')->default(0);
+
+$table->column()->unsigned(): Không âm (cho số nguyên).
+Ví dụ: $table->integer('age')->unsigned();
+
+$table->column()->comment('text'): Thêm chú thích cho cột.
+Ví dụ: $table->string('name')->comment('User full name');
