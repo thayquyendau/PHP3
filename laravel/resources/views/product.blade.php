@@ -2,7 +2,7 @@
     @section('title', 'Manager Products')
     @section('content')
         <div class="container mt-5">
-            <h1 class="text-center mb-4 text-danger">Quản Lý Sản Phẩm</h1>
+            <h1 class="text-center mb-4 text-danger">Quản Lý Danh Muc Sản Phẩm</h1>
             <!-- Nút Thêm Sản Phẩm -->
             <div class="text-end mb-3">
                 <a href="{{ route('product.add') }}" class="btn btn-success btn-lg shadow-sm">
@@ -38,9 +38,9 @@
                     <tbody>
                         @foreach ($products as $product)
                             <!--Lay Sản phẩm không phải của loại IPhone -->
-                            @php
+                            {{-- @php
                             if ($product->category_name != 'IPhone'):
-                            @endphp
+                            @endphp --}}
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 {{-- <td>{{ $product->category->name}}</td> lay theo cach dung with thiet lap quan he --}}           
@@ -49,15 +49,15 @@
                                 <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->description }}</td>
-                                <td><img src="{{ Storage::url($product->image) }}" width="100" alt="{{ $product->name}}"></td>
+                                <td><img src="{{ asset($product->image) }}" width="100" alt="{{ $product->name}}"></td>
                                 <td>
                                     <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-primary me-1">Sửa</a>
                                     <a href="{{ route('product.delete', $product->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
                                 </td>
                             </tr>
-                            @php
+                            {{-- @php
                             endif; 
-                            @endphp
+                            @endphp --}}
                         @endforeach
                     </tbody>
                 </table>

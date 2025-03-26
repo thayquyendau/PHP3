@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', [TinController::class, 'index']);
 Route::get('/lien-he', [TinController::class , 'lienhe']);
 Route::get('/ct/{id}', [TinController::class, 'lay1tin']);
-Route::get('thongtinsv', [InFoStudent::class, 'info']);
+Route::get('thongtinsv', [InFoStudent::class, 'info']); 
 
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/product', [ProductController::class, 'index'])->name('products');

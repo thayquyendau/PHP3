@@ -43,35 +43,43 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',         
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-    
-        $path = $request->file('image')->store('images', 'public');
-        $product = new Product;
-        $product->name = $request->input('name');
-        $product->id_category = $request->input('id_category');
-        $product->price = $request->input('price');
-        $product->description = $request->input('description');
-        $product->stock = $request->input('stock');
-        $product->image = $path;
-        $product->save();
-    
-        return redirect()->route('products')->with('success', 'Thêm sản phẩm thành công');
+{
+    $request->validate([
+        'name' => 'required',
+        'price' => 'required|numeric',
+        'stock' => 'required|integer',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
+
+    // Xử lý upload hình ảnh
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName(); // Tạo tên file duy nhất
+        $image->move(public_path('images'), $imageName); // Lưu vào public/images
+        $path = 'images/' . $imageName; // Đường dẫn tương đối
     }
+
+    // Lưu vào database
+    $product = new Product;
+    $product->name = $request->input('name');
+    $product->id_category = $request->input('id_category');
+    $product->price = $request->input('price');
+    $product->description = $request->input('description');
+    $product->stock = $request->input('stock');
+    $product->image = $path; // Lưu đường dẫn tương đối
+    $product->save();
+
+    return redirect()->route('products')->with('success', 'Thêm sản phẩm thành công');
+}
 
     /**
      * Display the specified resource.
      */
     public function edit(string $id)
     {
-
+        $categories = DB::table('categories')->select('*')->get();
         $product = (new Product)->find($id);
-        return view('product-edit', compact('product'));
+        return view('product-edit', compact('product', 'categories'));
     }
 
     /**

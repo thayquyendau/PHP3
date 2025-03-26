@@ -28,6 +28,7 @@ $table->char('column', length)
 Chuỗi ký tự độ dài cố định.
 Ví dụ: $table->char('code', 4);
  (độ dài 4)
+
 $table->date('column')
 Ngày (DATE).
 Ví dụ: $table->date('birthday');
@@ -44,6 +45,7 @@ $table->decimal('column', total, places)
 Số thập phân chính xác.
 Ví dụ: $table->decimal('price', 8, 2);
  (8 chữ số, 2 sau dấu chấm)
+ 
 $table->double('column', total, places)
 Số thực dấu phẩy động.
 Ví dụ: $table->double('score', 8, 2);
