@@ -1,0 +1,1661 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th3 28, 2025 lúc 11:45 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Cơ sở dữ liệu: `php3`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `banner`
+--
+
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `desc` text NOT NULL,
+  `img` varchar(10000) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `banner`
+--
+
+INSERT INTO `banner` (`id`, `title`, `desc`, `img`, `created_at`, `is_active`) VALUES
+(1, 'Hội nghị thượng đỉnh quốc tế 2025', 'Các nhà lãnh đạo thế giới thảo luận về biến đổi khí hậu tại Paris.', 'https://machsongmedia.org/images/2025/02/11/Nguyen%20Bac%20Truyen%20-%20IRF%20Summit%202025%202.jpeg', '2025-02-26 05:16:05', 1),
+(2, 'Ra mắt smartphone thế hệ mới', 'Công nghệ đột phá với màn hình gập và AI tiên tiến.', 'https://static.kinhtedothi.vn/w960/images/upload/2024/11/15/san-pham-apple-2-1.jpg', '2025-02-26 05:16:05', 1),
+(3, 'Trận chung kết bóng đá đỉnh cao', 'Cuộc đối đầu giữa hai đội bóng hàng đầu châu Á', 'https://bcp.cdnchinhphu.vn/334894974524682240/2025/1/5/edit-vie-t-nam-2-1736088797-1736088-1636-5222-1736088832-17360912614851562353275.png', '2025-02-26 05:16:05', 1),
+(4, 'Cảnh báo bão lớn tại miền Trung', 'Dự báo thời tiết khẩn cấp cho các tỉnh ven biển.', 'https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/9/23/bao-so-1-16638908950491592437586-0-101-562-1000-crop-16638914481591323202682.jpg', '2025-02-26 05:16:05', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Công nghệ', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
+(2, 'Kinh doanh', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
+(3, 'Giáo dục', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
+(4, 'Sức khỏe', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
+(5, 'Du lịch', '2025-03-27 15:13:44', '2025-03-27 15:13:44');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `news_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `comments`
+--
+
+INSERT INTO `comments` (`id`, `news_id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
+(4, 30, 3, 'Sao mà đẹp bằng Sầm Sơn Việt Nam', '2025-03-28 02:46:46', '2025-03-28 02:46:46'),
+(5, 30, 4, 'Có đẹp thật không hay là báo lá cải', '2025-03-28 02:48:06', '2025-03-28 02:48:06'),
+(6, 29, 4, 'Chết thật, ngày nào mình cũng 3h mới ngủ, phải thay đổi thôi', '2025-03-28 02:49:08', '2025-03-28 02:49:08');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `dienthoai`
+--
+
+CREATE TABLE `dienthoai` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tenDT` varchar(30) NOT NULL,
+  `moTa` varchar(1000) DEFAULT NULL,
+  `ngayCapNhat` datetime NOT NULL,
+  `gia` double NOT NULL,
+  `giaKM` double NOT NULL DEFAULT 0,
+  `urlHinh` varchar(200) DEFAULT NULL,
+  `soLuongTonKho` int(11) NOT NULL DEFAULT 0,
+  `hot` tinyint(1) NOT NULL DEFAULT 0,
+  `anHien` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `baiViet` text DEFAULT NULL,
+  `ghiChu` varchar(500) DEFAULT NULL,
+  `idLoai` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `dienthoai`
+--
+
+INSERT INTO `dienthoai` (`id`, `tenDT`, `moTa`, `ngayCapNhat`, `gia`, `giaKM`, `urlHinh`, `soLuongTonKho`, `hot`, `anHien`, `created_at`, `updated_at`, `baiViet`, `ghiChu`, `idLoai`) VALUES
+(1, 'Oppo XA 0', NULL, '2025-03-26 13:26:45', 8288595, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(2, 'iPhone xs Max 0', NULL, '2025-03-26 13:26:45', 5057043, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(3, 'Nokia Pro 0', NULL, '2025-03-26 13:26:45', 2625708, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(4, 'Oppo XA 1', NULL, '2025-03-26 13:26:45', 8149394, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(5, 'iPhone xs Max 1', NULL, '2025-03-26 13:26:45', 6661716, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(6, 'Nokia Pro 1', NULL, '2025-03-26 13:26:45', 4033558, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(7, 'Oppo XA 2', NULL, '2025-03-26 13:26:45', 9748551, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(8, 'iPhone xs Max 2', NULL, '2025-03-26 13:26:45', 5259306, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(9, 'Nokia Pro 2', NULL, '2025-03-26 13:26:45', 4338361, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(10, 'Oppo XA 3', NULL, '2025-03-26 13:26:45', 8423924, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(11, 'iPhone xs Max 3', NULL, '2025-03-26 13:26:45', 7120879, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(12, 'Nokia Pro 3', NULL, '2025-03-26 13:26:45', 3934695, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(13, 'Oppo XA 4', NULL, '2025-03-26 13:26:45', 7737128, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(14, 'iPhone xs Max 4', NULL, '2025-03-26 13:26:45', 7122257, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(15, 'Nokia Pro 4', NULL, '2025-03-26 13:26:45', 3403988, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(16, 'Oppo XA 5', NULL, '2025-03-26 13:26:45', 8341082, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(17, 'iPhone xs Max 5', NULL, '2025-03-26 13:26:45', 5029588, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(18, 'Nokia Pro 5', NULL, '2025-03-26 13:26:45', 4224598, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(19, 'Oppo XA 6', NULL, '2025-03-26 13:26:45', 8668891, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(20, 'iPhone xs Max 6', NULL, '2025-03-26 13:26:45', 6434606, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(21, 'Nokia Pro 6', NULL, '2025-03-26 13:26:45', 3256836, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(22, 'Oppo XA 7', NULL, '2025-03-26 13:26:45', 8991871, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(23, 'iPhone xs Max 7', NULL, '2025-03-26 13:26:45', 6701011, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(24, 'Nokia Pro 7', NULL, '2025-03-26 13:26:45', 4413198, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(25, 'Oppo XA 8', NULL, '2025-03-26 13:26:45', 7529693, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(26, 'iPhone xs Max 8', NULL, '2025-03-26 13:26:45', 7739219, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(27, 'Nokia Pro 8', NULL, '2025-03-26 13:26:45', 3696233, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(28, 'Oppo XA 9', NULL, '2025-03-26 13:26:45', 8733289, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(29, 'iPhone xs Max 9', NULL, '2025-03-26 13:26:45', 6241218, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(30, 'Nokia Pro 9', NULL, '2025-03-26 13:26:45', 4277865, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(31, 'Oppo XA 10', NULL, '2025-03-26 13:26:45', 7027328, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(32, 'iPhone xs Max 10', NULL, '2025-03-26 13:26:45', 6932081, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(33, 'Nokia Pro 10', NULL, '2025-03-26 13:26:45', 3667229, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(34, 'Oppo XA 11', NULL, '2025-03-26 13:26:45', 9769520, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(35, 'iPhone xs Max 11', NULL, '2025-03-26 13:26:45', 7936971, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(36, 'Nokia Pro 11', NULL, '2025-03-26 13:26:45', 3272250, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(37, 'Oppo XA 12', NULL, '2025-03-26 13:26:45', 9592444, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(38, 'iPhone xs Max 12', NULL, '2025-03-26 13:26:45', 6594219, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(39, 'Nokia Pro 12', NULL, '2025-03-26 13:26:45', 2954397, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(40, 'Oppo XA 13', NULL, '2025-03-26 13:26:45', 7828543, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(41, 'iPhone xs Max 13', NULL, '2025-03-26 13:26:45', 6257973, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(42, 'Nokia Pro 13', NULL, '2025-03-26 13:26:45', 4579988, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(43, 'Oppo XA 14', NULL, '2025-03-26 13:26:45', 7347115, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(44, 'iPhone xs Max 14', NULL, '2025-03-26 13:26:45', 5211384, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(45, 'Nokia Pro 14', NULL, '2025-03-26 13:26:45', 3386217, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(46, 'Oppo XA 15', NULL, '2025-03-26 13:26:45', 8195749, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(47, 'iPhone xs Max 15', NULL, '2025-03-26 13:26:45', 7593090, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(48, 'Nokia Pro 15', NULL, '2025-03-26 13:26:45', 3281854, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(49, 'Oppo XA 16', NULL, '2025-03-26 13:26:45', 9249338, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(50, 'iPhone xs Max 16', NULL, '2025-03-26 13:26:45', 5623989, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(51, 'Nokia Pro 16', NULL, '2025-03-26 13:26:45', 3696909, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(52, 'Oppo XA 17', NULL, '2025-03-26 13:26:45', 9602904, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(53, 'iPhone xs Max 17', NULL, '2025-03-26 13:26:45', 6936911, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(54, 'Nokia Pro 17', NULL, '2025-03-26 13:26:45', 3941474, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(55, 'Oppo XA 18', NULL, '2025-03-26 13:26:45', 8638467, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(56, 'iPhone xs Max 18', NULL, '2025-03-26 13:26:45', 6421218, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(57, 'Nokia Pro 18', NULL, '2025-03-26 13:26:45', 4043456, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(58, 'Oppo XA 19', NULL, '2025-03-26 13:26:45', 9377661, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(59, 'iPhone xs Max 19', NULL, '2025-03-26 13:26:45', 5583491, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(60, 'Nokia Pro 19', NULL, '2025-03-26 13:26:45', 3558692, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(61, 'Oppo XA 20', NULL, '2025-03-26 13:26:45', 9947982, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(62, 'iPhone xs Max 20', NULL, '2025-03-26 13:26:45', 5500411, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(63, 'Nokia Pro 20', NULL, '2025-03-26 13:26:45', 4591150, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(64, 'Oppo XA 21', NULL, '2025-03-26 13:26:45', 9976080, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(65, 'iPhone xs Max 21', NULL, '2025-03-26 13:26:45', 6749382, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(66, 'Nokia Pro 21', NULL, '2025-03-26 13:26:45', 4532518, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(67, 'Oppo XA 22', NULL, '2025-03-26 13:26:45', 7075212, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(68, 'iPhone xs Max 22', NULL, '2025-03-26 13:26:45', 6669813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(69, 'Nokia Pro 22', NULL, '2025-03-26 13:26:45', 2543536, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(70, 'Oppo XA 23', NULL, '2025-03-26 13:26:45', 9955720, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(71, 'iPhone xs Max 23', NULL, '2025-03-26 13:26:45', 5511245, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(72, 'Nokia Pro 23', NULL, '2025-03-26 13:26:45', 4001079, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(73, 'Oppo XA 24', NULL, '2025-03-26 13:26:45', 7025028, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(74, 'iPhone xs Max 24', NULL, '2025-03-26 13:26:45', 7686638, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(75, 'Nokia Pro 24', NULL, '2025-03-26 13:26:45', 4574263, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(76, 'Oppo XA 25', NULL, '2025-03-26 13:26:45', 7315872, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(77, 'iPhone xs Max 25', NULL, '2025-03-26 13:26:45', 6453799, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(78, 'Nokia Pro 25', NULL, '2025-03-26 13:26:45', 2622619, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(79, 'Oppo XA 26', NULL, '2025-03-26 13:26:45', 8701974, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(80, 'iPhone xs Max 26', NULL, '2025-03-26 13:26:45', 5181024, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(81, 'Nokia Pro 26', NULL, '2025-03-26 13:26:45', 4740474, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(82, 'Oppo XA 27', NULL, '2025-03-26 13:26:45', 9455078, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(83, 'iPhone xs Max 27', NULL, '2025-03-26 13:26:45', 6958377, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(84, 'Nokia Pro 27', NULL, '2025-03-26 13:26:45', 4084444, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(85, 'Oppo XA 28', NULL, '2025-03-26 13:26:45', 7931883, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(86, 'iPhone xs Max 28', NULL, '2025-03-26 13:26:45', 7811622, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(87, 'Nokia Pro 28', NULL, '2025-03-26 13:26:45', 3977517, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(88, 'Oppo XA 29', NULL, '2025-03-26 13:26:45', 7593281, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(89, 'iPhone xs Max 29', NULL, '2025-03-26 13:26:45', 7663102, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(90, 'Nokia Pro 29', NULL, '2025-03-26 13:26:45', 4303372, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(91, 'Oppo XA 30', NULL, '2025-03-26 13:26:45', 8399535, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(92, 'iPhone xs Max 30', NULL, '2025-03-26 13:26:45', 6593791, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(93, 'Nokia Pro 30', NULL, '2025-03-26 13:26:45', 3930376, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(94, 'Oppo XA 31', NULL, '2025-03-26 13:26:45', 8336654, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(95, 'iPhone xs Max 31', NULL, '2025-03-26 13:26:45', 7246575, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(96, 'Nokia Pro 31', NULL, '2025-03-26 13:26:45', 4683958, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(97, 'Oppo XA 32', NULL, '2025-03-26 13:26:45', 8847544, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(98, 'iPhone xs Max 32', NULL, '2025-03-26 13:26:45', 6611245, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(99, 'Nokia Pro 32', NULL, '2025-03-26 13:26:45', 3482691, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(100, 'Oppo XA 33', NULL, '2025-03-26 13:26:45', 9239833, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(101, 'iPhone xs Max 33', NULL, '2025-03-26 13:26:45', 7394866, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(102, 'Nokia Pro 33', NULL, '2025-03-26 13:26:45', 4960883, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(103, 'Oppo XA 34', NULL, '2025-03-26 13:26:45', 8717355, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(104, 'iPhone xs Max 34', NULL, '2025-03-26 13:26:45', 7538211, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(105, 'Nokia Pro 34', NULL, '2025-03-26 13:26:45', 4705345, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(106, 'Oppo XA 35', NULL, '2025-03-26 13:26:45', 7352496, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(107, 'iPhone xs Max 35', NULL, '2025-03-26 13:26:45', 5188951, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(108, 'Nokia Pro 35', NULL, '2025-03-26 13:26:45', 4511191, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(109, 'Oppo XA 36', NULL, '2025-03-26 13:26:45', 7668104, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(110, 'iPhone xs Max 36', NULL, '2025-03-26 13:26:45', 5879779, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(111, 'Nokia Pro 36', NULL, '2025-03-26 13:26:45', 3185756, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(112, 'Oppo XA 37', NULL, '2025-03-26 13:26:45', 9425005, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(113, 'iPhone xs Max 37', NULL, '2025-03-26 13:26:45', 5035680, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(114, 'Nokia Pro 37', NULL, '2025-03-26 13:26:45', 2799365, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(115, 'Oppo XA 38', NULL, '2025-03-26 13:26:45', 8279952, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(116, 'iPhone xs Max 38', NULL, '2025-03-26 13:26:45', 6604255, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(117, 'Nokia Pro 38', NULL, '2025-03-26 13:26:45', 2883813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(118, 'Oppo XA 39', NULL, '2025-03-26 13:26:45', 8012678, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(119, 'iPhone xs Max 39', NULL, '2025-03-26 13:26:45', 7172501, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(120, 'Nokia Pro 39', NULL, '2025-03-26 13:26:45', 2858272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(121, 'Oppo XA 40', NULL, '2025-03-26 13:26:45', 7853546, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(122, 'iPhone xs Max 40', NULL, '2025-03-26 13:26:45', 5625064, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(123, 'Nokia Pro 40', NULL, '2025-03-26 13:26:45', 3713017, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(124, 'Oppo XA 41', NULL, '2025-03-26 13:26:45', 9781003, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(125, 'iPhone xs Max 41', NULL, '2025-03-26 13:26:45', 6710272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(126, 'Nokia Pro 41', NULL, '2025-03-26 13:26:45', 4642567, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(127, 'Oppo XA 42', NULL, '2025-03-26 13:26:45', 9811914, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(128, 'iPhone xs Max 42', NULL, '2025-03-26 13:26:45', 7135144, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(129, 'Nokia Pro 42', NULL, '2025-03-26 13:26:45', 4520520, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(130, 'Oppo XA 43', NULL, '2025-03-26 13:26:45', 7150925, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(131, 'iPhone xs Max 43', NULL, '2025-03-26 13:26:45', 6488469, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(132, 'Nokia Pro 43', NULL, '2025-03-26 13:26:45', 4508983, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(133, 'Oppo XA 44', NULL, '2025-03-26 13:26:45', 8183435, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(134, 'iPhone xs Max 44', NULL, '2025-03-26 13:26:45', 7915387, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(135, 'Nokia Pro 44', NULL, '2025-03-26 13:26:45', 4195728, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(136, 'Oppo XA 45', NULL, '2025-03-26 13:26:45', 7480900, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(137, 'iPhone xs Max 45', NULL, '2025-03-26 13:26:45', 7020772, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(138, 'Nokia Pro 45', NULL, '2025-03-26 13:26:45', 3762980, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(139, 'Oppo XA 46', NULL, '2025-03-26 13:26:45', 8632625, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(140, 'iPhone xs Max 46', NULL, '2025-03-26 13:26:45', 6427090, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(141, 'Nokia Pro 46', NULL, '2025-03-26 13:26:45', 4449198, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(142, 'Oppo XA 47', NULL, '2025-03-26 13:26:45', 8776155, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(143, 'iPhone xs Max 47', NULL, '2025-03-26 13:26:45', 6293985, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(144, 'Nokia Pro 47', NULL, '2025-03-26 13:26:45', 2578657, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(145, 'Oppo XA 48', NULL, '2025-03-26 13:26:45', 8302011, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(146, 'iPhone xs Max 48', NULL, '2025-03-26 13:26:45', 5038597, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(147, 'Nokia Pro 48', NULL, '2025-03-26 13:26:45', 2830148, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(148, 'Oppo XA 49', NULL, '2025-03-26 13:26:45', 7628947, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(149, 'iPhone xs Max 49', NULL, '2025-03-26 13:26:45', 7214891, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(150, 'Nokia Pro 49', NULL, '2025-03-26 13:26:45', 3719563, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(151, 'Oppo XA 50', NULL, '2025-03-26 13:26:45', 7464857, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(152, 'iPhone xs Max 50', NULL, '2025-03-26 13:26:45', 5956818, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(153, 'Nokia Pro 50', NULL, '2025-03-26 13:26:45', 3669989, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(154, 'Oppo XA 51', NULL, '2025-03-26 13:26:45', 7683588, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(155, 'iPhone xs Max 51', NULL, '2025-03-26 13:26:45', 7471266, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(156, 'Nokia Pro 51', NULL, '2025-03-26 13:26:45', 4847963, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(157, 'Oppo XA 52', NULL, '2025-03-26 13:26:45', 7903929, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(158, 'iPhone xs Max 52', NULL, '2025-03-26 13:26:45', 7610069, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(159, 'Nokia Pro 52', NULL, '2025-03-26 13:26:45', 3079925, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(160, 'Oppo XA 53', NULL, '2025-03-26 13:26:45', 7510478, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(161, 'iPhone xs Max 53', NULL, '2025-03-26 13:26:45', 5077917, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(162, 'Nokia Pro 53', NULL, '2025-03-26 13:26:45', 4716700, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(163, 'Oppo XA 54', NULL, '2025-03-26 13:26:45', 7969860, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(164, 'iPhone xs Max 54', NULL, '2025-03-26 13:26:45', 6813743, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(165, 'Nokia Pro 54', NULL, '2025-03-26 13:26:45', 3680064, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(166, 'Oppo XA 55', NULL, '2025-03-26 13:26:45', 9799306, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(167, 'iPhone xs Max 55', NULL, '2025-03-26 13:26:45', 7857558, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(168, 'Nokia Pro 55', NULL, '2025-03-26 13:26:45', 4908408, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(169, 'Oppo XA 56', NULL, '2025-03-26 13:26:45', 7601222, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(170, 'iPhone xs Max 56', NULL, '2025-03-26 13:26:45', 5203392, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(171, 'Nokia Pro 56', NULL, '2025-03-26 13:26:45', 3270813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(172, 'Oppo XA 57', NULL, '2025-03-26 13:26:45', 9333442, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(173, 'iPhone xs Max 57', NULL, '2025-03-26 13:26:45', 6345283, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(174, 'Nokia Pro 57', NULL, '2025-03-26 13:26:45', 3231722, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(175, 'Oppo XA 58', NULL, '2025-03-26 13:26:45', 9615670, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(176, 'iPhone xs Max 58', NULL, '2025-03-26 13:26:45', 5554637, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(177, 'Nokia Pro 58', NULL, '2025-03-26 13:26:45', 3471280, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(178, 'Oppo XA 59', NULL, '2025-03-26 13:26:45', 8330208, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(179, 'iPhone xs Max 59', NULL, '2025-03-26 13:26:45', 7166206, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(180, 'Nokia Pro 59', NULL, '2025-03-26 13:26:45', 4259086, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(181, 'Oppo XA 60', NULL, '2025-03-26 13:26:45', 9506410, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(182, 'iPhone xs Max 60', NULL, '2025-03-26 13:26:45', 6427321, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(183, 'Nokia Pro 60', NULL, '2025-03-26 13:26:45', 2935405, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(184, 'Oppo XA 61', NULL, '2025-03-26 13:26:45', 9356759, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(185, 'iPhone xs Max 61', NULL, '2025-03-26 13:26:45', 7823424, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(186, 'Nokia Pro 61', NULL, '2025-03-26 13:26:45', 2623393, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(187, 'Oppo XA 62', NULL, '2025-03-26 13:26:45', 7714351, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(188, 'iPhone xs Max 62', NULL, '2025-03-26 13:26:45', 5150478, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(189, 'Nokia Pro 62', NULL, '2025-03-26 13:26:45', 2861262, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(190, 'Oppo XA 63', NULL, '2025-03-26 13:26:45', 8764254, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(191, 'iPhone xs Max 63', NULL, '2025-03-26 13:26:45', 7429944, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(192, 'Nokia Pro 63', NULL, '2025-03-26 13:26:45', 4142603, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(193, 'Oppo XA 64', NULL, '2025-03-26 13:26:45', 7253463, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(194, 'iPhone xs Max 64', NULL, '2025-03-26 13:26:45', 5215017, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(195, 'Nokia Pro 64', NULL, '2025-03-26 13:26:45', 3531836, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(196, 'Oppo XA 65', NULL, '2025-03-26 13:26:45', 9719268, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(197, 'iPhone xs Max 65', NULL, '2025-03-26 13:26:45', 5232239, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(198, 'Nokia Pro 65', NULL, '2025-03-26 13:26:45', 4243219, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(199, 'Oppo XA 66', NULL, '2025-03-26 13:26:45', 7270176, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(200, 'iPhone xs Max 66', NULL, '2025-03-26 13:26:45', 7188066, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(201, 'Nokia Pro 66', NULL, '2025-03-26 13:26:45', 4089512, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(202, 'Oppo XA 67', NULL, '2025-03-26 13:26:45', 7565168, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(203, 'iPhone xs Max 67', NULL, '2025-03-26 13:26:45', 6689912, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(204, 'Nokia Pro 67', NULL, '2025-03-26 13:26:45', 3887586, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(205, 'Oppo XA 68', NULL, '2025-03-26 13:26:45', 9888887, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(206, 'iPhone xs Max 68', NULL, '2025-03-26 13:26:45', 7640008, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(207, 'Nokia Pro 68', NULL, '2025-03-26 13:26:45', 4660870, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(208, 'Oppo XA 69', NULL, '2025-03-26 13:26:45', 7935654, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(209, 'iPhone xs Max 69', NULL, '2025-03-26 13:26:45', 6041737, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(210, 'Nokia Pro 69', NULL, '2025-03-26 13:26:45', 4747363, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(211, 'Oppo XA 70', NULL, '2025-03-26 13:26:45', 8041649, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(212, 'iPhone xs Max 70', NULL, '2025-03-26 13:26:45', 6336127, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(213, 'Nokia Pro 70', NULL, '2025-03-26 13:26:45', 3420288, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(214, 'Oppo XA 71', NULL, '2025-03-26 13:26:45', 9452106, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(215, 'iPhone xs Max 71', NULL, '2025-03-26 13:26:45', 6152587, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(216, 'Nokia Pro 71', NULL, '2025-03-26 13:26:45', 2951643, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(217, 'Oppo XA 72', NULL, '2025-03-26 13:26:45', 8841619, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(218, 'iPhone xs Max 72', NULL, '2025-03-26 13:26:45', 6001206, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(219, 'Nokia Pro 72', NULL, '2025-03-26 13:26:45', 2725261, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(220, 'Oppo XA 73', NULL, '2025-03-26 13:26:45', 9137039, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(221, 'iPhone xs Max 73', NULL, '2025-03-26 13:26:45', 6232186, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(222, 'Nokia Pro 73', NULL, '2025-03-26 13:26:45', 3307529, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(223, 'Oppo XA 74', NULL, '2025-03-26 13:26:45', 7264885, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(224, 'iPhone xs Max 74', NULL, '2025-03-26 13:26:45', 6782392, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(225, 'Nokia Pro 74', NULL, '2025-03-26 13:26:45', 2537934, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(226, 'Oppo XA 75', NULL, '2025-03-26 13:26:45', 7680583, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(227, 'iPhone xs Max 75', NULL, '2025-03-26 13:26:45', 5958404, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(228, 'Nokia Pro 75', NULL, '2025-03-26 13:26:45', 3666375, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(229, 'Oppo XA 76', NULL, '2025-03-26 13:26:45', 9580660, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(230, 'iPhone xs Max 76', NULL, '2025-03-26 13:26:45', 5459561, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(231, 'Nokia Pro 76', NULL, '2025-03-26 13:26:45', 4928470, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(232, 'Oppo XA 77', NULL, '2025-03-26 13:26:45', 8365859, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(233, 'iPhone xs Max 77', NULL, '2025-03-26 13:26:45', 5754830, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(234, 'Nokia Pro 77', NULL, '2025-03-26 13:26:45', 3882712, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(235, 'Oppo XA 78', NULL, '2025-03-26 13:26:45', 7614268, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(236, 'iPhone xs Max 78', NULL, '2025-03-26 13:26:45', 7489331, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(237, 'Nokia Pro 78', NULL, '2025-03-26 13:26:45', 4218107, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(238, 'Oppo XA 79', NULL, '2025-03-26 13:26:45', 7990771, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(239, 'iPhone xs Max 79', NULL, '2025-03-26 13:26:45', 5960419, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(240, 'Nokia Pro 79', NULL, '2025-03-26 13:26:45', 4952145, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(241, 'Oppo XA 80', NULL, '2025-03-26 13:26:45', 8434920, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(242, 'iPhone xs Max 80', NULL, '2025-03-26 13:26:45', 7629815, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(243, 'Nokia Pro 80', NULL, '2025-03-26 13:26:45', 3064572, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(244, 'Oppo XA 81', NULL, '2025-03-26 13:26:45', 8778250, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(245, 'iPhone xs Max 81', NULL, '2025-03-26 13:26:45', 7448135, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(246, 'Nokia Pro 81', NULL, '2025-03-26 13:26:45', 3626125, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(247, 'Oppo XA 82', NULL, '2025-03-26 13:26:45', 8309886, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(248, 'iPhone xs Max 82', NULL, '2025-03-26 13:26:45', 6325883, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(249, 'Nokia Pro 82', NULL, '2025-03-26 13:26:45', 4422637, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(250, 'Oppo XA 83', NULL, '2025-03-26 13:26:45', 8665988, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(251, 'iPhone xs Max 83', NULL, '2025-03-26 13:26:45', 6135816, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(252, 'Nokia Pro 83', NULL, '2025-03-26 13:26:45', 4253470, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(253, 'Oppo XA 84', NULL, '2025-03-26 13:26:45', 8796296, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(254, 'iPhone xs Max 84', NULL, '2025-03-26 13:26:45', 7062568, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(255, 'Nokia Pro 84', NULL, '2025-03-26 13:26:45', 4937860, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(256, 'Oppo XA 85', NULL, '2025-03-26 13:26:45', 7133726, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(257, 'iPhone xs Max 85', NULL, '2025-03-26 13:26:45', 6488039, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(258, 'Nokia Pro 85', NULL, '2025-03-26 13:26:45', 4829660, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(259, 'Oppo XA 86', NULL, '2025-03-26 13:26:45', 8264025, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(260, 'iPhone xs Max 86', NULL, '2025-03-26 13:26:45', 7529308, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(261, 'Nokia Pro 86', NULL, '2025-03-26 13:26:45', 4833110, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(262, 'Oppo XA 87', NULL, '2025-03-26 13:26:45', 9098930, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(263, 'iPhone xs Max 87', NULL, '2025-03-26 13:26:45', 6753710, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(264, 'Nokia Pro 87', NULL, '2025-03-26 13:26:45', 3550632, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(265, 'Oppo XA 88', NULL, '2025-03-26 13:26:45', 8469892, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(266, 'iPhone xs Max 88', NULL, '2025-03-26 13:26:45', 5020107, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(267, 'Nokia Pro 88', NULL, '2025-03-26 13:26:45', 3013370, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(268, 'Oppo XA 89', NULL, '2025-03-26 13:26:45', 7188220, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(269, 'iPhone xs Max 89', NULL, '2025-03-26 13:26:45', 6063337, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(270, 'Nokia Pro 89', NULL, '2025-03-26 13:26:45', 4790272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(271, 'Oppo XA 90', NULL, '2025-03-26 13:26:45', 7818995, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(272, 'iPhone xs Max 90', NULL, '2025-03-26 13:26:45', 7390925, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(273, 'Nokia Pro 90', NULL, '2025-03-26 13:26:45', 2631416, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(274, 'Oppo XA 91', NULL, '2025-03-26 13:26:45', 7318940, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(275, 'iPhone xs Max 91', NULL, '2025-03-26 13:26:45', 6973858, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(276, 'Nokia Pro 91', NULL, '2025-03-26 13:26:45', 3636319, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(277, 'Oppo XA 92', NULL, '2025-03-26 13:26:45', 7686382, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(278, 'iPhone xs Max 92', NULL, '2025-03-26 13:26:45', 7077654, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(279, 'Nokia Pro 92', NULL, '2025-03-26 13:26:45', 4472814, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(280, 'Oppo XA 93', NULL, '2025-03-26 13:26:45', 9601578, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(281, 'iPhone xs Max 93', NULL, '2025-03-26 13:26:45', 7921082, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(282, 'Nokia Pro 93', NULL, '2025-03-26 13:26:45', 4137865, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(283, 'Oppo XA 94', NULL, '2025-03-26 13:26:45', 8186126, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(284, 'iPhone xs Max 94', NULL, '2025-03-26 13:26:45', 5711479, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(285, 'Nokia Pro 94', NULL, '2025-03-26 13:26:45', 4062618, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(286, 'Oppo XA 95', NULL, '2025-03-26 13:26:45', 7565172, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(287, 'iPhone xs Max 95', NULL, '2025-03-26 13:26:45', 7940641, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(288, 'Nokia Pro 95', NULL, '2025-03-26 13:26:45', 4664447, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(289, 'Oppo XA 96', NULL, '2025-03-26 13:26:45', 9223551, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(290, 'iPhone xs Max 96', NULL, '2025-03-26 13:26:45', 7215430, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(291, 'Nokia Pro 96', NULL, '2025-03-26 13:26:45', 3633780, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(292, 'Oppo XA 97', NULL, '2025-03-26 13:26:45', 9335965, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(293, 'iPhone xs Max 97', NULL, '2025-03-26 13:26:45', 7614789, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(294, 'Nokia Pro 97', NULL, '2025-03-26 13:26:45', 4066770, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(295, 'Oppo XA 98', NULL, '2025-03-26 13:26:45', 9786044, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(296, 'iPhone xs Max 98', NULL, '2025-03-26 13:26:45', 6598217, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(297, 'Nokia Pro 98', NULL, '2025-03-26 13:26:45', 3762854, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(298, 'Oppo XA 99', NULL, '2025-03-26 13:26:45', 7674064, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(299, 'iPhone xs Max 99', NULL, '2025-03-26 13:26:45', 6395442, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(300, 'Nokia Pro 99', NULL, '2025-03-26 13:26:45', 4310974, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(301, 'Oppo XA 100', NULL, '2025-03-26 13:26:45', 9045396, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(302, 'iPhone xs Max 100', NULL, '2025-03-26 13:26:45', 6454922, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(303, 'Nokia Pro 100', NULL, '2025-03-26 13:26:45', 3917730, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(304, 'Oppo XA 101', NULL, '2025-03-26 13:26:45', 7786521, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(305, 'iPhone xs Max 101', NULL, '2025-03-26 13:26:45', 7402182, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(306, 'Nokia Pro 101', NULL, '2025-03-26 13:26:45', 4508371, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(307, 'Oppo XA 102', NULL, '2025-03-26 13:26:45', 8547160, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(308, 'iPhone xs Max 102', NULL, '2025-03-26 13:26:45', 6998825, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(309, 'Nokia Pro 102', NULL, '2025-03-26 13:26:45', 3956182, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(310, 'Oppo XA 103', NULL, '2025-03-26 13:26:45', 8404017, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(311, 'iPhone xs Max 103', NULL, '2025-03-26 13:26:45', 7915434, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(312, 'Nokia Pro 103', NULL, '2025-03-26 13:26:45', 4832172, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(313, 'Oppo XA 104', NULL, '2025-03-26 13:26:45', 8120316, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(314, 'iPhone xs Max 104', NULL, '2025-03-26 13:26:45', 6320012, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(315, 'Nokia Pro 104', NULL, '2025-03-26 13:26:45', 4813850, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(316, 'Oppo XA 105', NULL, '2025-03-26 13:26:45', 7725197, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(317, 'iPhone xs Max 105', NULL, '2025-03-26 13:26:45', 7326955, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(318, 'Nokia Pro 105', NULL, '2025-03-26 13:26:45', 3341999, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(319, 'Oppo XA 106', NULL, '2025-03-26 13:26:45', 7611242, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(320, 'iPhone xs Max 106', NULL, '2025-03-26 13:26:45', 5021208, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(321, 'Nokia Pro 106', NULL, '2025-03-26 13:26:45', 2882525, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(322, 'Oppo XA 107', NULL, '2025-03-26 13:26:45', 8438244, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(323, 'iPhone xs Max 107', NULL, '2025-03-26 13:26:45', 5527196, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(324, 'Nokia Pro 107', NULL, '2025-03-26 13:26:45', 3718562, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(325, 'Oppo XA 108', NULL, '2025-03-26 13:26:45', 8261738, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(326, 'iPhone xs Max 108', NULL, '2025-03-26 13:26:45', 5200964, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(327, 'Nokia Pro 108', NULL, '2025-03-26 13:26:45', 2737027, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(328, 'Oppo XA 109', NULL, '2025-03-26 13:26:45', 9402672, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(329, 'iPhone xs Max 109', NULL, '2025-03-26 13:26:45', 7457137, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(330, 'Nokia Pro 109', NULL, '2025-03-26 13:26:45', 4566415, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(331, 'Oppo XA 110', NULL, '2025-03-26 13:26:45', 8084828, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(332, 'iPhone xs Max 110', NULL, '2025-03-26 13:26:45', 7136608, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(333, 'Nokia Pro 110', NULL, '2025-03-26 13:26:45', 4828733, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(334, 'Oppo XA 111', NULL, '2025-03-26 13:26:45', 8370500, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(335, 'iPhone xs Max 111', NULL, '2025-03-26 13:26:45', 5180748, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(336, 'Nokia Pro 111', NULL, '2025-03-26 13:26:45', 3263379, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(337, 'Oppo XA 112', NULL, '2025-03-26 13:26:45', 7116275, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(338, 'iPhone xs Max 112', NULL, '2025-03-26 13:26:45', 7321920, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(339, 'Nokia Pro 112', NULL, '2025-03-26 13:26:45', 3517310, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(340, 'Oppo XA 113', NULL, '2025-03-26 13:26:45', 8089435, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(341, 'iPhone xs Max 113', NULL, '2025-03-26 13:26:45', 6709757, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(342, 'Nokia Pro 113', NULL, '2025-03-26 13:26:45', 4117052, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(343, 'Oppo XA 114', NULL, '2025-03-26 13:26:45', 7152446, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(344, 'iPhone xs Max 114', NULL, '2025-03-26 13:26:45', 7610730, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(345, 'Nokia Pro 114', NULL, '2025-03-26 13:26:45', 3048075, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(346, 'Oppo XA 115', NULL, '2025-03-26 13:26:45', 9969937, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(347, 'iPhone xs Max 115', NULL, '2025-03-26 13:26:45', 5954435, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(348, 'Nokia Pro 115', NULL, '2025-03-26 13:26:45', 3477330, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(349, 'Oppo XA 116', NULL, '2025-03-26 13:26:45', 9433653, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(350, 'iPhone xs Max 116', NULL, '2025-03-26 13:26:45', 6585697, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(351, 'Nokia Pro 116', NULL, '2025-03-26 13:26:45', 4035091, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(352, 'Oppo XA 117', NULL, '2025-03-26 13:26:45', 8790845, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(353, 'iPhone xs Max 117', NULL, '2025-03-26 13:26:45', 7599380, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(354, 'Nokia Pro 117', NULL, '2025-03-26 13:26:45', 3036253, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(355, 'Oppo XA 118', NULL, '2025-03-26 13:26:45', 7313729, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(356, 'iPhone xs Max 118', NULL, '2025-03-26 13:26:45', 6359169, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(357, 'Nokia Pro 118', NULL, '2025-03-26 13:26:45', 3457620, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(358, 'Oppo XA 119', NULL, '2025-03-26 13:26:45', 7560890, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(359, 'iPhone xs Max 119', NULL, '2025-03-26 13:26:45', 7496004, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(360, 'Nokia Pro 119', NULL, '2025-03-26 13:26:45', 4830482, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(361, 'Oppo XA 120', NULL, '2025-03-26 13:26:45', 9347148, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(362, 'iPhone xs Max 120', NULL, '2025-03-26 13:26:45', 7396191, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(363, 'Nokia Pro 120', NULL, '2025-03-26 13:26:45', 3824761, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(364, 'Oppo XA 121', NULL, '2025-03-26 13:26:45', 8155427, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(365, 'iPhone xs Max 121', NULL, '2025-03-26 13:26:45', 5844275, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(366, 'Nokia Pro 121', NULL, '2025-03-26 13:26:45', 4994057, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(367, 'Oppo XA 122', NULL, '2025-03-26 13:26:45', 9004097, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(368, 'iPhone xs Max 122', NULL, '2025-03-26 13:26:45', 6356876, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(369, 'Nokia Pro 122', NULL, '2025-03-26 13:26:45', 2699727, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(370, 'Oppo XA 123', NULL, '2025-03-26 13:26:45', 9351843, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(371, 'iPhone xs Max 123', NULL, '2025-03-26 13:26:45', 7172064, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(372, 'Nokia Pro 123', NULL, '2025-03-26 13:26:45', 4492630, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(373, 'Oppo XA 124', NULL, '2025-03-26 13:26:45', 7822024, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(374, 'iPhone xs Max 124', NULL, '2025-03-26 13:26:45', 5781401, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(375, 'Nokia Pro 124', NULL, '2025-03-26 13:26:45', 2580155, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(376, 'Oppo XA 125', NULL, '2025-03-26 13:26:45', 8015272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(377, 'iPhone xs Max 125', NULL, '2025-03-26 13:26:45', 5276004, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(378, 'Nokia Pro 125', NULL, '2025-03-26 13:26:45', 3289240, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(379, 'Oppo XA 126', NULL, '2025-03-26 13:26:45', 9646761, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(380, 'iPhone xs Max 126', NULL, '2025-03-26 13:26:45', 5361221, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(381, 'Nokia Pro 126', NULL, '2025-03-26 13:26:45', 3701271, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(382, 'Oppo XA 127', NULL, '2025-03-26 13:26:45', 7773486, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(383, 'iPhone xs Max 127', NULL, '2025-03-26 13:26:45', 5736914, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(384, 'Nokia Pro 127', NULL, '2025-03-26 13:26:45', 3281130, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(385, 'Oppo XA 128', NULL, '2025-03-26 13:26:45', 7521358, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(386, 'iPhone xs Max 128', NULL, '2025-03-26 13:26:45', 6758302, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(387, 'Nokia Pro 128', NULL, '2025-03-26 13:26:45', 4763068, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(388, 'Oppo XA 129', NULL, '2025-03-26 13:26:45', 7342815, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(389, 'iPhone xs Max 129', NULL, '2025-03-26 13:26:45', 7306255, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(390, 'Nokia Pro 129', NULL, '2025-03-26 13:26:45', 4510081, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(391, 'Oppo XA 130', NULL, '2025-03-26 13:26:45', 8188925, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(392, 'iPhone xs Max 130', NULL, '2025-03-26 13:26:45', 5446530, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(393, 'Nokia Pro 130', NULL, '2025-03-26 13:26:45', 3715589, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(394, 'Oppo XA 131', NULL, '2025-03-26 13:26:45', 7607609, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(395, 'iPhone xs Max 131', NULL, '2025-03-26 13:26:45', 7954040, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(396, 'Nokia Pro 131', NULL, '2025-03-26 13:26:45', 2818435, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(397, 'Oppo XA 132', NULL, '2025-03-26 13:26:45', 7422391, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(398, 'iPhone xs Max 132', NULL, '2025-03-26 13:26:45', 5782310, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(399, 'Nokia Pro 132', NULL, '2025-03-26 13:26:45', 3594505, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(400, 'Oppo XA 133', NULL, '2025-03-26 13:26:45', 8372180, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(401, 'iPhone xs Max 133', NULL, '2025-03-26 13:26:45', 6970902, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(402, 'Nokia Pro 133', NULL, '2025-03-26 13:26:45', 2743977, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(403, 'Oppo XA 134', NULL, '2025-03-26 13:26:45', 9270057, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(404, 'iPhone xs Max 134', NULL, '2025-03-26 13:26:45', 6001505, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(405, 'Nokia Pro 134', NULL, '2025-03-26 13:26:45', 4245601, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(406, 'Oppo XA 135', NULL, '2025-03-26 13:26:45', 7420435, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(407, 'iPhone xs Max 135', NULL, '2025-03-26 13:26:45', 7082090, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(408, 'Nokia Pro 135', NULL, '2025-03-26 13:26:45', 3019068, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(409, 'Oppo XA 136', NULL, '2025-03-26 13:26:45', 7906290, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(410, 'iPhone xs Max 136', NULL, '2025-03-26 13:26:45', 6019864, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(411, 'Nokia Pro 136', NULL, '2025-03-26 13:26:45', 4459554, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(412, 'Oppo XA 137', NULL, '2025-03-26 13:26:45', 9742939, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(413, 'iPhone xs Max 137', NULL, '2025-03-26 13:26:45', 6242672, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(414, 'Nokia Pro 137', NULL, '2025-03-26 13:26:45', 3151889, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(415, 'Oppo XA 138', NULL, '2025-03-26 13:26:45', 8510363, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(416, 'iPhone xs Max 138', NULL, '2025-03-26 13:26:45', 5760517, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(417, 'Nokia Pro 138', NULL, '2025-03-26 13:26:45', 4573580, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(418, 'Oppo XA 139', NULL, '2025-03-26 13:26:45', 7683043, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(419, 'iPhone xs Max 139', NULL, '2025-03-26 13:26:45', 6401387, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(420, 'Nokia Pro 139', NULL, '2025-03-26 13:26:45', 4531545, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(421, 'Oppo XA 140', NULL, '2025-03-26 13:26:45', 9690159, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(422, 'iPhone xs Max 140', NULL, '2025-03-26 13:26:45', 5983111, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(423, 'Nokia Pro 140', NULL, '2025-03-26 13:26:45', 2810324, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(424, 'Oppo XA 141', NULL, '2025-03-26 13:26:45', 9609013, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(425, 'iPhone xs Max 141', NULL, '2025-03-26 13:26:45', 5938664, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(426, 'Nokia Pro 141', NULL, '2025-03-26 13:26:45', 4370505, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(427, 'Oppo XA 142', NULL, '2025-03-26 13:26:45', 7456298, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(428, 'iPhone xs Max 142', NULL, '2025-03-26 13:26:45', 7466322, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(429, 'Nokia Pro 142', NULL, '2025-03-26 13:26:45', 3135910, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(430, 'Oppo XA 143', NULL, '2025-03-26 13:26:45', 8941571, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(431, 'iPhone xs Max 143', NULL, '2025-03-26 13:26:45', 5471491, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(432, 'Nokia Pro 143', NULL, '2025-03-26 13:26:45', 3750088, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(433, 'Oppo XA 144', NULL, '2025-03-26 13:26:45', 7060923, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(434, 'iPhone xs Max 144', NULL, '2025-03-26 13:26:45', 7142687, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(435, 'Nokia Pro 144', NULL, '2025-03-26 13:26:45', 3777069, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(436, 'Oppo XA 145', NULL, '2025-03-26 13:26:45', 7435493, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(437, 'iPhone xs Max 145', NULL, '2025-03-26 13:26:45', 7441356, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(438, 'Nokia Pro 145', NULL, '2025-03-26 13:26:45', 3911424, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(439, 'Oppo XA 146', NULL, '2025-03-26 13:26:45', 8856102, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(440, 'iPhone xs Max 146', NULL, '2025-03-26 13:26:45', 5395813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(441, 'Nokia Pro 146', NULL, '2025-03-26 13:26:45', 4213283, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(442, 'Oppo XA 147', NULL, '2025-03-26 13:26:45', 9964715, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(443, 'iPhone xs Max 147', NULL, '2025-03-26 13:26:45', 6907456, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(444, 'Nokia Pro 147', NULL, '2025-03-26 13:26:45', 4115062, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(445, 'Oppo XA 148', NULL, '2025-03-26 13:26:45', 8502485, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(446, 'iPhone xs Max 148', NULL, '2025-03-26 13:26:45', 6637307, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(447, 'Nokia Pro 148', NULL, '2025-03-26 13:26:45', 3201548, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(448, 'Oppo XA 149', NULL, '2025-03-26 13:26:45', 8858741, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(449, 'iPhone xs Max 149', NULL, '2025-03-26 13:26:45', 5036939, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(450, 'Nokia Pro 149', NULL, '2025-03-26 13:26:45', 4415508, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(451, 'Oppo XA 150', NULL, '2025-03-26 13:26:45', 9952910, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(452, 'iPhone xs Max 150', NULL, '2025-03-26 13:26:45', 5284758, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(453, 'Nokia Pro 150', NULL, '2025-03-26 13:26:45', 3484976, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(454, 'Oppo XA 151', NULL, '2025-03-26 13:26:45', 8655559, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(455, 'iPhone xs Max 151', NULL, '2025-03-26 13:26:45', 5584040, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(456, 'Nokia Pro 151', NULL, '2025-03-26 13:26:45', 2952887, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(457, 'Oppo XA 152', NULL, '2025-03-26 13:26:45', 7936243, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(458, 'iPhone xs Max 152', NULL, '2025-03-26 13:26:45', 6781559, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(459, 'Nokia Pro 152', NULL, '2025-03-26 13:26:45', 4131597, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(460, 'Oppo XA 153', NULL, '2025-03-26 13:26:45', 7313191, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(461, 'iPhone xs Max 153', NULL, '2025-03-26 13:26:45', 6584976, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(462, 'Nokia Pro 153', NULL, '2025-03-26 13:26:45', 3550780, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(463, 'Oppo XA 154', NULL, '2025-03-26 13:26:45', 9847769, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(464, 'iPhone xs Max 154', NULL, '2025-03-26 13:26:45', 7441046, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(465, 'Nokia Pro 154', NULL, '2025-03-26 13:26:45', 4354673, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(466, 'Oppo XA 155', NULL, '2025-03-26 13:26:45', 7344444, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(467, 'iPhone xs Max 155', NULL, '2025-03-26 13:26:45', 7017923, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(468, 'Nokia Pro 155', NULL, '2025-03-26 13:26:45', 4892032, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(469, 'Oppo XA 156', NULL, '2025-03-26 13:26:45', 7651005, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(470, 'iPhone xs Max 156', NULL, '2025-03-26 13:26:45', 7475407, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(471, 'Nokia Pro 156', NULL, '2025-03-26 13:26:45', 3575622, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(472, 'Oppo XA 157', NULL, '2025-03-26 13:26:45', 9599160, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(473, 'iPhone xs Max 157', NULL, '2025-03-26 13:26:45', 5138520, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(474, 'Nokia Pro 157', NULL, '2025-03-26 13:26:45', 3457281, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(475, 'Oppo XA 158', NULL, '2025-03-26 13:26:45', 7717590, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2);
+INSERT INTO `dienthoai` (`id`, `tenDT`, `moTa`, `ngayCapNhat`, `gia`, `giaKM`, `urlHinh`, `soLuongTonKho`, `hot`, `anHien`, `created_at`, `updated_at`, `baiViet`, `ghiChu`, `idLoai`) VALUES
+(476, 'iPhone xs Max 158', NULL, '2025-03-26 13:26:45', 5807844, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(477, 'Nokia Pro 158', NULL, '2025-03-26 13:26:45', 3396094, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(478, 'Oppo XA 159', NULL, '2025-03-26 13:26:45', 9939021, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(479, 'iPhone xs Max 159', NULL, '2025-03-26 13:26:45', 7818431, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(480, 'Nokia Pro 159', NULL, '2025-03-26 13:26:45', 4767517, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(481, 'Oppo XA 160', NULL, '2025-03-26 13:26:45', 9190583, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(482, 'iPhone xs Max 160', NULL, '2025-03-26 13:26:45', 7139971, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(483, 'Nokia Pro 160', NULL, '2025-03-26 13:26:45', 3665856, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(484, 'Oppo XA 161', NULL, '2025-03-26 13:26:45', 8266733, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(485, 'iPhone xs Max 161', NULL, '2025-03-26 13:26:45', 7607272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(486, 'Nokia Pro 161', NULL, '2025-03-26 13:26:45', 4819894, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(487, 'Oppo XA 162', NULL, '2025-03-26 13:26:45', 7293396, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(488, 'iPhone xs Max 162', NULL, '2025-03-26 13:26:45', 7290091, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(489, 'Nokia Pro 162', NULL, '2025-03-26 13:26:45', 4368191, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(490, 'Oppo XA 163', NULL, '2025-03-26 13:26:45', 9129314, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(491, 'iPhone xs Max 163', NULL, '2025-03-26 13:26:45', 7775526, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(492, 'Nokia Pro 163', NULL, '2025-03-26 13:26:45', 3896176, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(493, 'Oppo XA 164', NULL, '2025-03-26 13:26:45', 7451256, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(494, 'iPhone xs Max 164', NULL, '2025-03-26 13:26:45', 7174906, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(495, 'Nokia Pro 164', NULL, '2025-03-26 13:26:45', 4155210, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(496, 'Oppo XA 165', NULL, '2025-03-26 13:26:45', 7566421, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(497, 'iPhone xs Max 165', NULL, '2025-03-26 13:26:45', 6738656, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(498, 'Nokia Pro 165', NULL, '2025-03-26 13:26:45', 2888121, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(499, 'Oppo XA 166', NULL, '2025-03-26 13:26:45', 8775645, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(500, 'iPhone xs Max 166', NULL, '2025-03-26 13:26:45', 6605665, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(501, 'Nokia Pro 166', NULL, '2025-03-26 13:26:45', 2739179, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(502, 'Oppo XA 167', NULL, '2025-03-26 13:26:45', 9202342, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(503, 'iPhone xs Max 167', NULL, '2025-03-26 13:26:45', 6886333, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(504, 'Nokia Pro 167', NULL, '2025-03-26 13:26:45', 3045751, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(505, 'Oppo XA 168', NULL, '2025-03-26 13:26:45', 8434654, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(506, 'iPhone xs Max 168', NULL, '2025-03-26 13:26:45', 6361157, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(507, 'Nokia Pro 168', NULL, '2025-03-26 13:26:45', 4775443, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(508, 'Oppo XA 169', NULL, '2025-03-26 13:26:45', 8979880, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(509, 'iPhone xs Max 169', NULL, '2025-03-26 13:26:45', 7152181, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(510, 'Nokia Pro 169', NULL, '2025-03-26 13:26:45', 4198365, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(511, 'Oppo XA 170', NULL, '2025-03-26 13:26:45', 8851489, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(512, 'iPhone xs Max 170', NULL, '2025-03-26 13:26:45', 7563602, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(513, 'Nokia Pro 170', NULL, '2025-03-26 13:26:45', 2843272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(514, 'Oppo XA 171', NULL, '2025-03-26 13:26:45', 9575827, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(515, 'iPhone xs Max 171', NULL, '2025-03-26 13:26:45', 5883638, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(516, 'Nokia Pro 171', NULL, '2025-03-26 13:26:45', 2951523, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(517, 'Oppo XA 172', NULL, '2025-03-26 13:26:45', 9757487, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(518, 'iPhone xs Max 172', NULL, '2025-03-26 13:26:45', 5748820, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(519, 'Nokia Pro 172', NULL, '2025-03-26 13:26:45', 3651046, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(520, 'Oppo XA 173', NULL, '2025-03-26 13:26:45', 7156180, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(521, 'iPhone xs Max 173', NULL, '2025-03-26 13:26:45', 6559099, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(522, 'Nokia Pro 173', NULL, '2025-03-26 13:26:45', 3392445, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(523, 'Oppo XA 174', NULL, '2025-03-26 13:26:45', 7883134, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(524, 'iPhone xs Max 174', NULL, '2025-03-26 13:26:45', 7349450, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(525, 'Nokia Pro 174', NULL, '2025-03-26 13:26:45', 4289282, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(526, 'Oppo XA 175', NULL, '2025-03-26 13:26:45', 9601652, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(527, 'iPhone xs Max 175', NULL, '2025-03-26 13:26:45', 7019648, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(528, 'Nokia Pro 175', NULL, '2025-03-26 13:26:45', 4325406, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(529, 'Oppo XA 176', NULL, '2025-03-26 13:26:45', 8878053, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(530, 'iPhone xs Max 176', NULL, '2025-03-26 13:26:45', 5340959, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(531, 'Nokia Pro 176', NULL, '2025-03-26 13:26:45', 2666545, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(532, 'Oppo XA 177', NULL, '2025-03-26 13:26:45', 9676931, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(533, 'iPhone xs Max 177', NULL, '2025-03-26 13:26:45', 6273287, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(534, 'Nokia Pro 177', NULL, '2025-03-26 13:26:45', 4978300, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(535, 'Oppo XA 178', NULL, '2025-03-26 13:26:45', 9472570, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(536, 'iPhone xs Max 178', NULL, '2025-03-26 13:26:45', 7703620, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(537, 'Nokia Pro 178', NULL, '2025-03-26 13:26:45', 2587727, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(538, 'Oppo XA 179', NULL, '2025-03-26 13:26:45', 8112564, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(539, 'iPhone xs Max 179', NULL, '2025-03-26 13:26:45', 6794557, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(540, 'Nokia Pro 179', NULL, '2025-03-26 13:26:45', 3010646, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(541, 'Oppo XA 180', NULL, '2025-03-26 13:26:45', 9397805, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(542, 'iPhone xs Max 180', NULL, '2025-03-26 13:26:45', 5238122, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(543, 'Nokia Pro 180', NULL, '2025-03-26 13:26:45', 3399674, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(544, 'Oppo XA 181', NULL, '2025-03-26 13:26:45', 9591355, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(545, 'iPhone xs Max 181', NULL, '2025-03-26 13:26:45', 7634725, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(546, 'Nokia Pro 181', NULL, '2025-03-26 13:26:45', 4436843, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(547, 'Oppo XA 182', NULL, '2025-03-26 13:26:45', 7577380, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(548, 'iPhone xs Max 182', NULL, '2025-03-26 13:26:45', 5963265, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(549, 'Nokia Pro 182', NULL, '2025-03-26 13:26:45', 4718354, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(550, 'Oppo XA 183', NULL, '2025-03-26 13:26:45', 8972825, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(551, 'iPhone xs Max 183', NULL, '2025-03-26 13:26:45', 6220753, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(552, 'Nokia Pro 183', NULL, '2025-03-26 13:26:45', 3539045, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(553, 'Oppo XA 184', NULL, '2025-03-26 13:26:45', 7410548, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(554, 'iPhone xs Max 184', NULL, '2025-03-26 13:26:45', 6348414, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(555, 'Nokia Pro 184', NULL, '2025-03-26 13:26:45', 2902984, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(556, 'Oppo XA 185', NULL, '2025-03-26 13:26:45', 8140318, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(557, 'iPhone xs Max 185', NULL, '2025-03-26 13:26:45', 6914940, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(558, 'Nokia Pro 185', NULL, '2025-03-26 13:26:45', 4696804, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(559, 'Oppo XA 186', NULL, '2025-03-26 13:26:45', 9208452, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(560, 'iPhone xs Max 186', NULL, '2025-03-26 13:26:45', 5668979, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(561, 'Nokia Pro 186', NULL, '2025-03-26 13:26:45', 2877368, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(562, 'Oppo XA 187', NULL, '2025-03-26 13:26:45', 7756853, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(563, 'iPhone xs Max 187', NULL, '2025-03-26 13:26:45', 5851977, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(564, 'Nokia Pro 187', NULL, '2025-03-26 13:26:45', 4116406, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(565, 'Oppo XA 188', NULL, '2025-03-26 13:26:45', 8056321, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(566, 'iPhone xs Max 188', NULL, '2025-03-26 13:26:45', 5967927, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(567, 'Nokia Pro 188', NULL, '2025-03-26 13:26:45', 2622554, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(568, 'Oppo XA 189', NULL, '2025-03-26 13:26:45', 8476265, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(569, 'iPhone xs Max 189', NULL, '2025-03-26 13:26:45', 6966454, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(570, 'Nokia Pro 189', NULL, '2025-03-26 13:26:45', 4859950, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(571, 'Oppo XA 190', NULL, '2025-03-26 13:26:45', 9501919, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(572, 'iPhone xs Max 190', NULL, '2025-03-26 13:26:45', 6345180, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(573, 'Nokia Pro 190', NULL, '2025-03-26 13:26:45', 4453767, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(574, 'Oppo XA 191', NULL, '2025-03-26 13:26:45', 9566834, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(575, 'iPhone xs Max 191', NULL, '2025-03-26 13:26:45', 5367430, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(576, 'Nokia Pro 191', NULL, '2025-03-26 13:26:45', 2730384, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(577, 'Oppo XA 192', NULL, '2025-03-26 13:26:45', 9593655, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(578, 'iPhone xs Max 192', NULL, '2025-03-26 13:26:45', 7573029, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(579, 'Nokia Pro 192', NULL, '2025-03-26 13:26:45', 4379474, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(580, 'Oppo XA 193', NULL, '2025-03-26 13:26:45', 7085025, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(581, 'iPhone xs Max 193', NULL, '2025-03-26 13:26:45', 5975859, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(582, 'Nokia Pro 193', NULL, '2025-03-26 13:26:45', 2549297, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(583, 'Oppo XA 194', NULL, '2025-03-26 13:26:45', 9551507, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(584, 'iPhone xs Max 194', NULL, '2025-03-26 13:26:45', 7957920, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(585, 'Nokia Pro 194', NULL, '2025-03-26 13:26:45', 3917337, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(586, 'Oppo XA 195', NULL, '2025-03-26 13:26:45', 8765896, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(587, 'iPhone xs Max 195', NULL, '2025-03-26 13:26:45', 7310718, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(588, 'Nokia Pro 195', NULL, '2025-03-26 13:26:45', 2931577, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(589, 'Oppo XA 196', NULL, '2025-03-26 13:26:45', 7357497, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(590, 'iPhone xs Max 196', NULL, '2025-03-26 13:26:45', 5107384, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(591, 'Nokia Pro 196', NULL, '2025-03-26 13:26:45', 4092003, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(592, 'Oppo XA 197', NULL, '2025-03-26 13:26:45', 8481357, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(593, 'iPhone xs Max 197', NULL, '2025-03-26 13:26:45', 6809380, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(594, 'Nokia Pro 197', NULL, '2025-03-26 13:26:45', 3797589, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(595, 'Oppo XA 198', NULL, '2025-03-26 13:26:45', 7905048, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(596, 'iPhone xs Max 198', NULL, '2025-03-26 13:26:45', 5782272, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(597, 'Nokia Pro 198', NULL, '2025-03-26 13:26:45', 2709079, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(598, 'Oppo XA 199', NULL, '2025-03-26 13:26:45', 9243510, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(599, 'iPhone xs Max 199', NULL, '2025-03-26 13:26:45', 7266349, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(600, 'Nokia Pro 199', NULL, '2025-03-26 13:26:45', 2652479, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(601, 'Oppo XA 200', NULL, '2025-03-26 13:26:45', 7725159, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(602, 'iPhone xs Max 200', NULL, '2025-03-26 13:26:45', 7562714, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(603, 'Nokia Pro 200', NULL, '2025-03-26 13:26:45', 2669429, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(604, 'Oppo XA 201', NULL, '2025-03-26 13:26:45', 8472687, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(605, 'iPhone xs Max 201', NULL, '2025-03-26 13:26:45', 6433954, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(606, 'Nokia Pro 201', NULL, '2025-03-26 13:26:45', 2685832, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(607, 'Oppo XA 202', NULL, '2025-03-26 13:26:45', 8778951, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(608, 'iPhone xs Max 202', NULL, '2025-03-26 13:26:45', 6055235, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(609, 'Nokia Pro 202', NULL, '2025-03-26 13:26:45', 4850813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(610, 'Oppo XA 203', NULL, '2025-03-26 13:26:45', 7451263, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(611, 'iPhone xs Max 203', NULL, '2025-03-26 13:26:45', 7257150, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(612, 'Nokia Pro 203', NULL, '2025-03-26 13:26:45', 4756845, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(613, 'Oppo XA 204', NULL, '2025-03-26 13:26:45', 9281765, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(614, 'iPhone xs Max 204', NULL, '2025-03-26 13:26:45', 7107148, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(615, 'Nokia Pro 204', NULL, '2025-03-26 13:26:45', 4214385, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(616, 'Oppo XA 205', NULL, '2025-03-26 13:26:45', 7498375, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(617, 'iPhone xs Max 205', NULL, '2025-03-26 13:26:45', 7624818, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(618, 'Nokia Pro 205', NULL, '2025-03-26 13:26:45', 4156894, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(619, 'Oppo XA 206', NULL, '2025-03-26 13:26:45', 7053631, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(620, 'iPhone xs Max 206', NULL, '2025-03-26 13:26:45', 5535054, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(621, 'Nokia Pro 206', NULL, '2025-03-26 13:26:45', 2945978, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(622, 'Oppo XA 207', NULL, '2025-03-26 13:26:45', 8177282, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(623, 'iPhone xs Max 207', NULL, '2025-03-26 13:26:45', 5915009, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(624, 'Nokia Pro 207', NULL, '2025-03-26 13:26:45', 2895122, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(625, 'Oppo XA 208', NULL, '2025-03-26 13:26:45', 9571232, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(626, 'iPhone xs Max 208', NULL, '2025-03-26 13:26:45', 5640528, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(627, 'Nokia Pro 208', NULL, '2025-03-26 13:26:45', 3043288, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(628, 'Oppo XA 209', NULL, '2025-03-26 13:26:45', 9819138, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(629, 'iPhone xs Max 209', NULL, '2025-03-26 13:26:45', 7200785, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(630, 'Nokia Pro 209', NULL, '2025-03-26 13:26:45', 4805780, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(631, 'Oppo XA 210', NULL, '2025-03-26 13:26:45', 8171166, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(632, 'iPhone xs Max 210', NULL, '2025-03-26 13:26:45', 5954134, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(633, 'Nokia Pro 210', NULL, '2025-03-26 13:26:45', 2910844, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(634, 'Oppo XA 211', NULL, '2025-03-26 13:26:45', 9466529, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(635, 'iPhone xs Max 211', NULL, '2025-03-26 13:26:45', 5763561, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(636, 'Nokia Pro 211', NULL, '2025-03-26 13:26:45', 3022062, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(637, 'Oppo XA 212', NULL, '2025-03-26 13:26:45', 9810897, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(638, 'iPhone xs Max 212', NULL, '2025-03-26 13:26:45', 5979211, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(639, 'Nokia Pro 212', NULL, '2025-03-26 13:26:45', 3783118, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(640, 'Oppo XA 213', NULL, '2025-03-26 13:26:45', 8973646, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(641, 'iPhone xs Max 213', NULL, '2025-03-26 13:26:45', 7635923, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(642, 'Nokia Pro 213', NULL, '2025-03-26 13:26:45', 2627775, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(643, 'Oppo XA 214', NULL, '2025-03-26 13:26:45', 8525301, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(644, 'iPhone xs Max 214', NULL, '2025-03-26 13:26:45', 6081122, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(645, 'Nokia Pro 214', NULL, '2025-03-26 13:26:45', 4571413, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(646, 'Oppo XA 215', NULL, '2025-03-26 13:26:45', 7270245, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(647, 'iPhone xs Max 215', NULL, '2025-03-26 13:26:45', 7438835, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(648, 'Nokia Pro 215', NULL, '2025-03-26 13:26:45', 3238819, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(649, 'Oppo XA 216', NULL, '2025-03-26 13:26:45', 7186989, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(650, 'iPhone xs Max 216', NULL, '2025-03-26 13:26:45', 5796612, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(651, 'Nokia Pro 216', NULL, '2025-03-26 13:26:45', 4102628, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(652, 'Oppo XA 217', NULL, '2025-03-26 13:26:45', 7100485, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(653, 'iPhone xs Max 217', NULL, '2025-03-26 13:26:45', 5970942, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(654, 'Nokia Pro 217', NULL, '2025-03-26 13:26:45', 4685205, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(655, 'Oppo XA 218', NULL, '2025-03-26 13:26:45', 7378962, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(656, 'iPhone xs Max 218', NULL, '2025-03-26 13:26:45', 5413269, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(657, 'Nokia Pro 218', NULL, '2025-03-26 13:26:45', 3819749, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(658, 'Oppo XA 219', NULL, '2025-03-26 13:26:45', 7180948, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(659, 'iPhone xs Max 219', NULL, '2025-03-26 13:26:45', 7397964, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(660, 'Nokia Pro 219', NULL, '2025-03-26 13:26:45', 3755706, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(661, 'Oppo XA 220', NULL, '2025-03-26 13:26:45', 8112213, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(662, 'iPhone xs Max 220', NULL, '2025-03-26 13:26:45', 5023048, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(663, 'Nokia Pro 220', NULL, '2025-03-26 13:26:45', 4725458, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(664, 'Oppo XA 221', NULL, '2025-03-26 13:26:45', 8666906, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(665, 'iPhone xs Max 221', NULL, '2025-03-26 13:26:45', 5682964, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(666, 'Nokia Pro 221', NULL, '2025-03-26 13:26:45', 4616067, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(667, 'Oppo XA 222', NULL, '2025-03-26 13:26:45', 9929635, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(668, 'iPhone xs Max 222', NULL, '2025-03-26 13:26:45', 6714932, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(669, 'Nokia Pro 222', NULL, '2025-03-26 13:26:45', 2687474, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(670, 'Oppo XA 223', NULL, '2025-03-26 13:26:45', 9771004, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(671, 'iPhone xs Max 223', NULL, '2025-03-26 13:26:45', 5488970, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(672, 'Nokia Pro 223', NULL, '2025-03-26 13:26:45', 3560418, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(673, 'Oppo XA 224', NULL, '2025-03-26 13:26:45', 8149269, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(674, 'iPhone xs Max 224', NULL, '2025-03-26 13:26:45', 6595933, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(675, 'Nokia Pro 224', NULL, '2025-03-26 13:26:45', 4443693, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(676, 'Oppo XA 225', NULL, '2025-03-26 13:26:45', 7437562, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(677, 'iPhone xs Max 225', NULL, '2025-03-26 13:26:45', 5508523, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(678, 'Nokia Pro 225', NULL, '2025-03-26 13:26:45', 2574602, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(679, 'Oppo XA 226', NULL, '2025-03-26 13:26:45', 7163059, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(680, 'iPhone xs Max 226', NULL, '2025-03-26 13:26:45', 7551961, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(681, 'Nokia Pro 226', NULL, '2025-03-26 13:26:45', 2876531, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(682, 'Oppo XA 227', NULL, '2025-03-26 13:26:45', 7236429, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(683, 'iPhone xs Max 227', NULL, '2025-03-26 13:26:45', 7523458, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(684, 'Nokia Pro 227', NULL, '2025-03-26 13:26:45', 3812041, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(685, 'Oppo XA 228', NULL, '2025-03-26 13:26:45', 8448739, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(686, 'iPhone xs Max 228', NULL, '2025-03-26 13:26:45', 6728922, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(687, 'Nokia Pro 228', NULL, '2025-03-26 13:26:45', 4698399, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(688, 'Oppo XA 229', NULL, '2025-03-26 13:26:45', 9170081, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(689, 'iPhone xs Max 229', NULL, '2025-03-26 13:26:45', 5231867, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(690, 'Nokia Pro 229', NULL, '2025-03-26 13:26:45', 3203540, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(691, 'Oppo XA 230', NULL, '2025-03-26 13:26:45', 8625072, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(692, 'iPhone xs Max 230', NULL, '2025-03-26 13:26:45', 5859902, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(693, 'Nokia Pro 230', NULL, '2025-03-26 13:26:45', 4042247, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(694, 'Oppo XA 231', NULL, '2025-03-26 13:26:45', 9260524, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(695, 'iPhone xs Max 231', NULL, '2025-03-26 13:26:45', 5634639, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(696, 'Nokia Pro 231', NULL, '2025-03-26 13:26:45', 4310728, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(697, 'Oppo XA 232', NULL, '2025-03-26 13:26:45', 8022212, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(698, 'iPhone xs Max 232', NULL, '2025-03-26 13:26:45', 7704001, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(699, 'Nokia Pro 232', NULL, '2025-03-26 13:26:45', 4938250, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(700, 'Oppo XA 233', NULL, '2025-03-26 13:26:45', 9079636, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(701, 'iPhone xs Max 233', NULL, '2025-03-26 13:26:45', 7371778, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(702, 'Nokia Pro 233', NULL, '2025-03-26 13:26:45', 2843529, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(703, 'Oppo XA 234', NULL, '2025-03-26 13:26:45', 8913404, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(704, 'iPhone xs Max 234', NULL, '2025-03-26 13:26:45', 6633270, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(705, 'Nokia Pro 234', NULL, '2025-03-26 13:26:45', 4418537, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(706, 'Oppo XA 235', NULL, '2025-03-26 13:26:45', 7844612, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(707, 'iPhone xs Max 235', NULL, '2025-03-26 13:26:45', 7871246, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(708, 'Nokia Pro 235', NULL, '2025-03-26 13:26:45', 3693287, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(709, 'Oppo XA 236', NULL, '2025-03-26 13:26:45', 7389087, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(710, 'iPhone xs Max 236', NULL, '2025-03-26 13:26:45', 5964493, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(711, 'Nokia Pro 236', NULL, '2025-03-26 13:26:45', 4559444, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(712, 'Oppo XA 237', NULL, '2025-03-26 13:26:45', 9979286, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(713, 'iPhone xs Max 237', NULL, '2025-03-26 13:26:45', 6982614, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(714, 'Nokia Pro 237', NULL, '2025-03-26 13:26:45', 2768826, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(715, 'Oppo XA 238', NULL, '2025-03-26 13:26:45', 9916280, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(716, 'iPhone xs Max 238', NULL, '2025-03-26 13:26:45', 5810012, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(717, 'Nokia Pro 238', NULL, '2025-03-26 13:26:45', 2875548, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(718, 'Oppo XA 239', NULL, '2025-03-26 13:26:45', 7657221, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(719, 'iPhone xs Max 239', NULL, '2025-03-26 13:26:45', 6450924, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(720, 'Nokia Pro 239', NULL, '2025-03-26 13:26:45', 3947188, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(721, 'Oppo XA 240', NULL, '2025-03-26 13:26:45', 9689344, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(722, 'iPhone xs Max 240', NULL, '2025-03-26 13:26:45', 7362345, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(723, 'Nokia Pro 240', NULL, '2025-03-26 13:26:45', 4465161, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(724, 'Oppo XA 241', NULL, '2025-03-26 13:26:45', 8035813, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(725, 'iPhone xs Max 241', NULL, '2025-03-26 13:26:45', 5613683, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(726, 'Nokia Pro 241', NULL, '2025-03-26 13:26:45', 3705873, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(727, 'Oppo XA 242', NULL, '2025-03-26 13:26:45', 9432841, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(728, 'iPhone xs Max 242', NULL, '2025-03-26 13:26:45', 6602476, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(729, 'Nokia Pro 242', NULL, '2025-03-26 13:26:45', 3303143, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(730, 'Oppo XA 243', NULL, '2025-03-26 13:26:45', 9916303, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(731, 'iPhone xs Max 243', NULL, '2025-03-26 13:26:45', 5809126, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(732, 'Nokia Pro 243', NULL, '2025-03-26 13:26:45', 2506547, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(733, 'Oppo XA 244', NULL, '2025-03-26 13:26:45', 8247821, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(734, 'iPhone xs Max 244', NULL, '2025-03-26 13:26:45', 5413582, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(735, 'Nokia Pro 244', NULL, '2025-03-26 13:26:45', 2629503, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(736, 'Oppo XA 245', NULL, '2025-03-26 13:26:45', 8183091, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(737, 'iPhone xs Max 245', NULL, '2025-03-26 13:26:45', 6222313, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(738, 'Nokia Pro 245', NULL, '2025-03-26 13:26:45', 4171916, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(739, 'Oppo XA 246', NULL, '2025-03-26 13:26:45', 8852180, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(740, 'iPhone xs Max 246', NULL, '2025-03-26 13:26:45', 6002692, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(741, 'Nokia Pro 246', NULL, '2025-03-26 13:26:45', 3645173, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(742, 'Oppo XA 247', NULL, '2025-03-26 13:26:45', 8680675, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(743, 'iPhone xs Max 247', NULL, '2025-03-26 13:26:45', 7715762, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(744, 'Nokia Pro 247', NULL, '2025-03-26 13:26:45', 4776651, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(745, 'Oppo XA 248', NULL, '2025-03-26 13:26:45', 9536835, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(746, 'iPhone xs Max 248', NULL, '2025-03-26 13:26:45', 6329879, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(747, 'Nokia Pro 248', NULL, '2025-03-26 13:26:45', 2750919, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(748, 'Oppo XA 249', NULL, '2025-03-26 13:26:45', 7037227, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(749, 'iPhone xs Max 249', NULL, '2025-03-26 13:26:45', 6140227, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(750, 'Nokia Pro 249', NULL, '2025-03-26 13:26:45', 3748138, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(751, 'Oppo XA 250', NULL, '2025-03-26 13:26:45', 9959117, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(752, 'iPhone xs Max 250', NULL, '2025-03-26 13:26:45', 7172700, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(753, 'Nokia Pro 250', NULL, '2025-03-26 13:26:45', 4308363, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(754, 'Oppo XA 251', NULL, '2025-03-26 13:26:45', 9648465, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(755, 'iPhone xs Max 251', NULL, '2025-03-26 13:26:45', 7484248, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(756, 'Nokia Pro 251', NULL, '2025-03-26 13:26:45', 3211529, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(757, 'Oppo XA 252', NULL, '2025-03-26 13:26:45', 9194515, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(758, 'iPhone xs Max 252', NULL, '2025-03-26 13:26:45', 7453021, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(759, 'Nokia Pro 252', NULL, '2025-03-26 13:26:45', 4699308, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(760, 'Oppo XA 253', NULL, '2025-03-26 13:26:45', 8096118, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(761, 'iPhone xs Max 253', NULL, '2025-03-26 13:26:45', 5445815, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(762, 'Nokia Pro 253', NULL, '2025-03-26 13:26:45', 3653013, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(763, 'Oppo XA 254', NULL, '2025-03-26 13:26:45', 7369987, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(764, 'iPhone xs Max 254', NULL, '2025-03-26 13:26:45', 5526688, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(765, 'Nokia Pro 254', NULL, '2025-03-26 13:26:45', 2589775, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(766, 'Oppo XA 255', NULL, '2025-03-26 13:26:45', 7199514, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(767, 'iPhone xs Max 255', NULL, '2025-03-26 13:26:45', 5195780, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(768, 'Nokia Pro 255', NULL, '2025-03-26 13:26:45', 3627278, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(769, 'Oppo XA 256', NULL, '2025-03-26 13:26:46', 8114305, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(770, 'iPhone xs Max 256', NULL, '2025-03-26 13:26:46', 7767023, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(771, 'Nokia Pro 256', NULL, '2025-03-26 13:26:46', 4315365, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(772, 'Oppo XA 257', NULL, '2025-03-26 13:26:46', 9792032, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(773, 'iPhone xs Max 257', NULL, '2025-03-26 13:26:46', 6568812, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(774, 'Nokia Pro 257', NULL, '2025-03-26 13:26:46', 4908733, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(775, 'Oppo XA 258', NULL, '2025-03-26 13:26:46', 7852720, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(776, 'iPhone xs Max 258', NULL, '2025-03-26 13:26:46', 6075651, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(777, 'Nokia Pro 258', NULL, '2025-03-26 13:26:46', 4297973, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(778, 'Oppo XA 259', NULL, '2025-03-26 13:26:46', 9338597, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(779, 'iPhone xs Max 259', NULL, '2025-03-26 13:26:46', 6942884, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(780, 'Nokia Pro 259', NULL, '2025-03-26 13:26:46', 4913553, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(781, 'Oppo XA 260', NULL, '2025-03-26 13:26:46', 8325437, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(782, 'iPhone xs Max 260', NULL, '2025-03-26 13:26:46', 6790936, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(783, 'Nokia Pro 260', NULL, '2025-03-26 13:26:46', 4352164, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(784, 'Oppo XA 261', NULL, '2025-03-26 13:26:46', 7863689, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(785, 'iPhone xs Max 261', NULL, '2025-03-26 13:26:46', 5106324, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(786, 'Nokia Pro 261', NULL, '2025-03-26 13:26:46', 4957035, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(787, 'Oppo XA 262', NULL, '2025-03-26 13:26:46', 7030536, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(788, 'iPhone xs Max 262', NULL, '2025-03-26 13:26:46', 5276093, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(789, 'Nokia Pro 262', NULL, '2025-03-26 13:26:46', 3895006, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(790, 'Oppo XA 263', NULL, '2025-03-26 13:26:46', 8341969, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(791, 'iPhone xs Max 263', NULL, '2025-03-26 13:26:46', 7236995, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(792, 'Nokia Pro 263', NULL, '2025-03-26 13:26:46', 4631922, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(793, 'Oppo XA 264', NULL, '2025-03-26 13:26:46', 9424414, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(794, 'iPhone xs Max 264', NULL, '2025-03-26 13:26:46', 5428301, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(795, 'Nokia Pro 264', NULL, '2025-03-26 13:26:46', 3887647, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(796, 'Oppo XA 265', NULL, '2025-03-26 13:26:46', 7718477, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(797, 'iPhone xs Max 265', NULL, '2025-03-26 13:26:46', 7969963, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(798, 'Nokia Pro 265', NULL, '2025-03-26 13:26:46', 3150352, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(799, 'Oppo XA 266', NULL, '2025-03-26 13:26:46', 7102198, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(800, 'iPhone xs Max 266', NULL, '2025-03-26 13:26:46', 7237536, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(801, 'Nokia Pro 266', NULL, '2025-03-26 13:26:46', 2500156, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(802, 'Oppo XA 267', NULL, '2025-03-26 13:26:46', 7340335, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(803, 'iPhone xs Max 267', NULL, '2025-03-26 13:26:46', 6846241, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(804, 'Nokia Pro 267', NULL, '2025-03-26 13:26:46', 4004563, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(805, 'Oppo XA 268', NULL, '2025-03-26 13:26:46', 9621165, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(806, 'iPhone xs Max 268', NULL, '2025-03-26 13:26:46', 7007992, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(807, 'Nokia Pro 268', NULL, '2025-03-26 13:26:46', 4894354, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(808, 'Oppo XA 269', NULL, '2025-03-26 13:26:46', 7757059, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(809, 'iPhone xs Max 269', NULL, '2025-03-26 13:26:46', 6677775, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(810, 'Nokia Pro 269', NULL, '2025-03-26 13:26:46', 3035705, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(811, 'Oppo XA 270', NULL, '2025-03-26 13:26:46', 9248065, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(812, 'iPhone xs Max 270', NULL, '2025-03-26 13:26:46', 6868239, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(813, 'Nokia Pro 270', NULL, '2025-03-26 13:26:46', 3621837, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(814, 'Oppo XA 271', NULL, '2025-03-26 13:26:46', 9446769, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(815, 'iPhone xs Max 271', NULL, '2025-03-26 13:26:46', 7852757, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(816, 'Nokia Pro 271', NULL, '2025-03-26 13:26:46', 2935481, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(817, 'Oppo XA 272', NULL, '2025-03-26 13:26:46', 7476629, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(818, 'iPhone xs Max 272', NULL, '2025-03-26 13:26:46', 5436912, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(819, 'Nokia Pro 272', NULL, '2025-03-26 13:26:46', 4366606, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(820, 'Oppo XA 273', NULL, '2025-03-26 13:26:46', 7954081, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(821, 'iPhone xs Max 273', NULL, '2025-03-26 13:26:46', 6911280, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(822, 'Nokia Pro 273', NULL, '2025-03-26 13:26:46', 4345376, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(823, 'Oppo XA 274', NULL, '2025-03-26 13:26:46', 9665988, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(824, 'iPhone xs Max 274', NULL, '2025-03-26 13:26:46', 6946452, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(825, 'Nokia Pro 274', NULL, '2025-03-26 13:26:46', 3135982, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(826, 'Oppo XA 275', NULL, '2025-03-26 13:26:46', 8505042, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(827, 'iPhone xs Max 275', NULL, '2025-03-26 13:26:46', 7784092, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(828, 'Nokia Pro 275', NULL, '2025-03-26 13:26:46', 4368858, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(829, 'Oppo XA 276', NULL, '2025-03-26 13:26:46', 9411254, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(830, 'iPhone xs Max 276', NULL, '2025-03-26 13:26:46', 5487177, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(831, 'Nokia Pro 276', NULL, '2025-03-26 13:26:46', 3154944, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(832, 'Oppo XA 277', NULL, '2025-03-26 13:26:46', 9087975, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(833, 'iPhone xs Max 277', NULL, '2025-03-26 13:26:46', 7862501, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(834, 'Nokia Pro 277', NULL, '2025-03-26 13:26:46', 2506212, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(835, 'Oppo XA 278', NULL, '2025-03-26 13:26:46', 8262612, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(836, 'iPhone xs Max 278', NULL, '2025-03-26 13:26:46', 5506975, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(837, 'Nokia Pro 278', NULL, '2025-03-26 13:26:46', 3139714, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(838, 'Oppo XA 279', NULL, '2025-03-26 13:26:46', 9011721, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(839, 'iPhone xs Max 279', NULL, '2025-03-26 13:26:46', 6568268, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(840, 'Nokia Pro 279', NULL, '2025-03-26 13:26:46', 3539407, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(841, 'Oppo XA 280', NULL, '2025-03-26 13:26:46', 8100925, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(842, 'iPhone xs Max 280', NULL, '2025-03-26 13:26:46', 5029425, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(843, 'Nokia Pro 280', NULL, '2025-03-26 13:26:46', 2754966, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(844, 'Oppo XA 281', NULL, '2025-03-26 13:26:46', 7749181, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(845, 'iPhone xs Max 281', NULL, '2025-03-26 13:26:46', 5036260, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(846, 'Nokia Pro 281', NULL, '2025-03-26 13:26:46', 3074133, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(847, 'Oppo XA 282', NULL, '2025-03-26 13:26:46', 9008478, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(848, 'iPhone xs Max 282', NULL, '2025-03-26 13:26:46', 5907334, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(849, 'Nokia Pro 282', NULL, '2025-03-26 13:26:46', 4329249, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(850, 'Oppo XA 283', NULL, '2025-03-26 13:26:46', 9230155, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(851, 'iPhone xs Max 283', NULL, '2025-03-26 13:26:46', 6893064, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(852, 'Nokia Pro 283', NULL, '2025-03-26 13:26:46', 3946929, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(853, 'Oppo XA 284', NULL, '2025-03-26 13:26:46', 7720332, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(854, 'iPhone xs Max 284', NULL, '2025-03-26 13:26:46', 7187420, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(855, 'Nokia Pro 284', NULL, '2025-03-26 13:26:46', 2759881, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(856, 'Oppo XA 285', NULL, '2025-03-26 13:26:46', 7891982, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(857, 'iPhone xs Max 285', NULL, '2025-03-26 13:26:46', 7955625, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(858, 'Nokia Pro 285', NULL, '2025-03-26 13:26:46', 3986122, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(859, 'Oppo XA 286', NULL, '2025-03-26 13:26:46', 8239346, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(860, 'iPhone xs Max 286', NULL, '2025-03-26 13:26:46', 6464827, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(861, 'Nokia Pro 286', NULL, '2025-03-26 13:26:46', 4835215, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(862, 'Oppo XA 287', NULL, '2025-03-26 13:26:46', 9960313, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(863, 'iPhone xs Max 287', NULL, '2025-03-26 13:26:46', 7603036, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(864, 'Nokia Pro 287', NULL, '2025-03-26 13:26:46', 4697822, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(865, 'Oppo XA 288', NULL, '2025-03-26 13:26:46', 8178386, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(866, 'iPhone xs Max 288', NULL, '2025-03-26 13:26:46', 6851858, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(867, 'Nokia Pro 288', NULL, '2025-03-26 13:26:46', 3451048, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(868, 'Oppo XA 289', NULL, '2025-03-26 13:26:46', 7525066, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(869, 'iPhone xs Max 289', NULL, '2025-03-26 13:26:46', 5708492, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(870, 'Nokia Pro 289', NULL, '2025-03-26 13:26:46', 4712034, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(871, 'Oppo XA 290', NULL, '2025-03-26 13:26:46', 8089615, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(872, 'iPhone xs Max 290', NULL, '2025-03-26 13:26:46', 6684545, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(873, 'Nokia Pro 290', NULL, '2025-03-26 13:26:46', 3905964, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(874, 'Oppo XA 291', NULL, '2025-03-26 13:26:46', 8925988, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(875, 'iPhone xs Max 291', NULL, '2025-03-26 13:26:46', 5897748, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(876, 'Nokia Pro 291', NULL, '2025-03-26 13:26:46', 4802989, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(877, 'Oppo XA 292', NULL, '2025-03-26 13:26:46', 9707665, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(878, 'iPhone xs Max 292', NULL, '2025-03-26 13:26:46', 7113437, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(879, 'Nokia Pro 292', NULL, '2025-03-26 13:26:46', 4704483, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(880, 'Oppo XA 293', NULL, '2025-03-26 13:26:46', 9936260, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(881, 'iPhone xs Max 293', NULL, '2025-03-26 13:26:46', 7200107, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(882, 'Nokia Pro 293', NULL, '2025-03-26 13:26:46', 3261747, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(883, 'Oppo XA 294', NULL, '2025-03-26 13:26:46', 7794170, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(884, 'iPhone xs Max 294', NULL, '2025-03-26 13:26:46', 5023590, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(885, 'Nokia Pro 294', NULL, '2025-03-26 13:26:46', 3646684, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(886, 'Oppo XA 295', NULL, '2025-03-26 13:26:46', 9955515, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(887, 'iPhone xs Max 295', NULL, '2025-03-26 13:26:46', 6586316, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(888, 'Nokia Pro 295', NULL, '2025-03-26 13:26:46', 3575690, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(889, 'Oppo XA 296', NULL, '2025-03-26 13:26:46', 8825494, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(890, 'iPhone xs Max 296', NULL, '2025-03-26 13:26:46', 5089341, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(891, 'Nokia Pro 296', NULL, '2025-03-26 13:26:46', 4654156, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(892, 'Oppo XA 297', NULL, '2025-03-26 13:26:46', 7847560, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(893, 'iPhone xs Max 297', NULL, '2025-03-26 13:26:46', 5822421, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(894, 'Nokia Pro 297', NULL, '2025-03-26 13:26:46', 3183970, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(895, 'Oppo XA 298', NULL, '2025-03-26 13:26:46', 7101440, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(896, 'iPhone xs Max 298', NULL, '2025-03-26 13:26:46', 6103068, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(897, 'Nokia Pro 298', NULL, '2025-03-26 13:26:46', 4132831, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(898, 'Oppo XA 299', NULL, '2025-03-26 13:26:46', 9994987, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 2),
+(899, 'iPhone xs Max 299', NULL, '2025-03-26 13:26:46', 5984004, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1),
+(900, 'Nokia Pro 299', NULL, '2025-03-26 13:26:46', 3935152, 0, NULL, 0, 0, 1, NULL, NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `loaisp`
+--
+
+CREATE TABLE `loaisp` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tenLoai` varchar(30) NOT NULL,
+  `thuTu` int(11) NOT NULL DEFAULT 0,
+  `anHien` tinyint(1) NOT NULL DEFAULT 1,
+  `urlHinh` varchar(200) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `loaisp`
+--
+
+INSERT INTO `loaisp` (`id`, `tenLoai`, `thuTu`, `anHien`, `urlHinh`, `created_at`, `updated_at`) VALUES
+(1, 'Smartphone', 1, 1, 'smartphone.jpg', NULL, NULL),
+(2, 'Tablet', 2, 1, 'tablet.jpg', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(4, '2025_03_13_064659_create_products_table', 2),
+(5, '2025_03_13_070501_add_columns_to_products_table', 3),
+(16, '2025_03_19_023917_add_ngay_dang_to_tin_table', 4),
+(17, '2025_03_19_030117_add_id_loai_to_tin_table', 4),
+(18, '2025_03_19_031208_add_tom_tat_to_tin_table', 4),
+(24, '0001_01_01_000000_create_users_table', 5),
+(25, '0001_01_01_000001_create_cache_table', 5),
+(26, '0001_01_01_000002_create_jobs_table', 5),
+(27, '2025_03_13_070706_create_products_table', 5),
+(28, '2025_03_19_034245_create_tin', 5),
+(32, '2025_03_19_153538_create_categories', 6),
+(33, '2025_03_22_063625_update_products', 7),
+(34, '2025_03_26_130237_create_dienthoai_table', 8),
+(35, '2025_03_26_130332_create_thanhvien_table', 8),
+(36, '2025_03_26_130350_create_loaisp_table', 8),
+(37, '2025_03_26_130518_add_fields_to_dienthoai_table', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `news`
+--
+
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `author` varchar(100) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` enum('draft','published') DEFAULT 'draft',
+  `img` varchar(10000) DEFAULT NULL,
+  `views` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `news`
+--
+
+INSERT INTO `news` (`id`, `id_category`, `title`, `content`, `author`, `created_at`, `updated_at`, `status`, `img`, `views`) VALUES
+(21, 1, 'AI và Tương Lai của Công Nghệ Y Tế', 'Bài viết phân tích cách AI đang thay đổi ngành y tế, từ chẩn đoán bệnh đến điều trị...', 'Hoàng Văn F', '2025-03-28 08:00:00', '2025-03-28 17:24:46', 'published', 'https://bna.1cdn.vn/2024/08/13/anh-minh-hoa..jpg', 123),
+(22, 2, 'Cách Quản Lý Tài Chính Doanh Nghiệp Hiệu Quả', 'Hướng dẫn các phương pháp quản lý tài chính giúp doanh nghiệp tối ưu hóa lợi nhuận...', 'Nguyễn Thị G', '2025-03-28 09:15:00', '2025-03-28 17:30:38', 'published', 'https://cloudoffice.com.vn/assetmanager/liveEditer/nguy%C3%AAn%20t%E1%BA%AFc%20quan%20tr%E1%BB%8Dng%20%C4%91%E1%BB%83%20qu%E1%BA%A3n%20l%C3%BD%20tc.png', 45),
+(23, 3, 'Kỹ Năng Ghi Chép Hiệu Quả Cho Học Sinh', 'Chia sẻ các mẹo ghi chép bài giảng giúp học sinh tiếp thu kiến thức tốt hơn...', 'Trần Văn H', '2025-03-28 10:30:00', '2025-03-28 17:29:50', 'published', 'https://eduforlife.edu.vn/wp-content/uploads/2022/11/Sketchnote-600x400.jpg', 36),
+(24, 4, 'Thực Đơn Ăn Uống Lành Mạnh Cho Người Bận Rộn', 'Gợi ý thực đơn dinh dưỡng cho những người có lịch trình bận rộn nhưng vẫn muốn duy trì sức khỏe...', 'Lê Thị I', '2025-03-28 11:45:00', '2025-03-28 17:26:10', 'published', 'https://anduocmart.com/wp-content/uploads/2022/09/1-3.png', 12),
+(25, 5, 'Hành Trình Khám Phá Đà Lạt Mộng Mơ', 'Kể lại trải nghiệm du lịch tại Đà Lạt với những địa điểm check-in đẹp và món ăn đặc sản...', 'Phạm Văn K', '2025-03-28 13:00:00', '2025-03-28 17:30:33', 'published', 'https://bazanxanh.com/wp-content/uploads/2018/12/Gioi-thieu-khu-du-lich-Langbiang-o-Da-Lat-hinh1.jpg', 56),
+(26, 1, 'Blockchain và Ứng Dụng Trong Tài Chính', 'Tìm hiểu cách blockchain đang cách mạng hóa ngành tài chính toàn cầu...', 'Ngô Thị L', '2025-03-29 09:00:00', '2025-03-28 17:27:14', 'published', 'https://media.tapchitaichinh.vn/images/upload/duongthanhhai/04172019/ung-dung-blockchain-trong-tai-chinh.jpg', 74),
+(27, 2, 'Tầm Quan Trọng của Văn Hóa Doanh Nghiệp', 'Phân tích vai trò của văn hóa doanh nghiệp trong việc thu hút nhân tài và phát triển bền vững...', 'Đỗ Văn M', '2025-03-29 10:15:00', '2025-03-28 17:37:24', 'published', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP7Oc1U_C9EboPVXDjrR3LLQCPAUNx9lkPdQ&s', 36),
+(28, 3, 'Học Online: Lợi Ích và Thách Thức', 'Đánh giá ưu, nhược điểm của việc học trực tuyến trong thời đại số hóa...', 'Bùi Thị N', '2025-03-29 11:30:00', '2025-03-28 17:30:42', 'published', 'https://baodongkhoi.vn/image/ckeditor/2024/20240704/files/hoc%20truc%20tuyen1.png', 67),
+(29, 4, 'Tầm Quan Trọng của Giấc Ngủ Đối Với Sức Khỏe', 'Nghiên cứu về tác động của giấc ngủ đến sức khỏe tinh thần và thể chất...', 'Vũ Văn P', '2025-03-29 14:00:00', '2025-03-28 17:28:25', 'published', 'https://aqualife.vn/wp-content/uploads/tam-quan-trong-cua-giac-ngu.jpg', 60),
+(30, 5, 'Top 5 Bãi Biển Đẹp Nhất Đông Nam Á', 'Danh sách các bãi biển đẹp tại Đông Nam Á, từ Phuket đến Bali...', 'Trương Thị Q', '2025-03-29 15:20:00', '2025-03-28 17:29:45', 'published', 'https://vcdn1-dulich.vnecdn.net/2018/05/02/tl-horizontal-main-5974-1525249399.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=6E1izuUrumMzDrgCeGybsQ', 66);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('a@gmail.com', '$2y$12$drg67qkY/KC7MQNMBNmzyeA8FRnu1sbgA1HSjZhZWnaLfExtMW48G', '2025-03-27 00:14:06'),
+('jisunn18@gmail.com', '$2y$12$ffGkaK27tO/I.Gu6o2Ie9OyZK.jWutpYkFzQLjfN1MHIjo8fs3sDG', '2025-03-28 01:42:20');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('lAtvAsV3iWgjnzviOPyCubBZ3wkVfkwiIGcWPZXs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUWN0TUU3ZWNtak5weUVuV0hVb3Z5dU51czBpejRwWHdZaGdhZlpOQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NDoidXNlciI7YTo0OntzOjI6ImlkIjtpOjQ7czo0OiJuYW1lIjtzOjEyOiLEkOG6oXQgSmlzdW4iO3M6NToiZW1haWwiO3M6MTg6Imppc3VubjE4QGdtYWlsLmNvbSI7czo0OiJyb2xlIjtzOjQ6InVzZXIiO319', 1743158417);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `thanhvien`
+--
+
+CREATE TABLE `thanhvien` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `hoTen` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `randomKey` varchar(100) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `idGroup` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `thanhvien`
+--
+
+INSERT INTO `thanhvien` (`id`, `hoTen`, `password`, `email`, `randomKey`, `active`, `idGroup`, `created_at`, `updated_at`) VALUES
+(1, 'Hồ Văn Hào', '$2y$12$KhemzuVBlNexu4/uchsJwOCAGi7DGNpMJlB9P5p5kEEU4LqPqNDie', 'nsSns0@gmail.com', NULL, 0, 0, NULL, NULL),
+(2, 'Hồ Hoàng Hoa', '$2y$12$kC.LApXMAL1ga6lTV4XYmuo/ZXw9WLlxPIE85TyiZQPMUWRVStuVm', 'BkPOo1@gmail.com', NULL, 0, 0, NULL, NULL),
+(3, 'Phan Thị Tú', '$2y$12$gU.FA5TQXBmug3hsslCmyOHST5PrM/me7EqsKswfg68VuFZ0y9Hzi', 'iibI52@gmail.com', NULL, 0, 0, NULL, NULL),
+(4, 'Bùi Kim Tâm', '$2y$12$h.f31OQG7G.Iwjh3QdMDHumc7EpjS/1lIJuwXUghuPRvwzCr.qj.m', 'Yj0VX3@gmail.com', NULL, 0, 0, NULL, NULL),
+(5, 'Hồ  Hậu', '$2y$12$eIrDb4WQ4tChiWwDrvegiOML3QXfZdq3nsz64OBTvdohA2cY1BRQW', 'LjhjN4@gmail.com', NULL, 0, 0, NULL, NULL),
+(6, 'Đỗ Văn Thảo', '$2y$12$rts.hjymdXBROLifu.7SP.3dRzgo2d3B/xJQAFsTO4wlcyJ6U1f3q', 'pmLaJ5@gmail.com', NULL, 0, 0, NULL, NULL),
+(7, 'Hồ Minh Thảo', '$2y$12$.eWVjoEnsRfuvURXv0CYMOPjfdUqxjUq6Km4lbiXunCD3zbUtsKQe', 'sRvor6@gmail.com', NULL, 0, 0, NULL, NULL),
+(8, 'Hồ  Tâm', '$2y$12$3bvIIAaZB4gABUN0bxKCHeIJNenpg9rpf7x3QLwD.y6EeQN4DYZLe', 'FJ8RF7@gmail.com', NULL, 0, 0, NULL, NULL),
+(9, 'Hồ Kim Hải', '$2y$12$58fIubkLPLez7vRHunigaulCiMXLR1KPUZnNn4hAoJECg89ZvQkwm', 'kiYa78@gmail.com', NULL, 0, 0, NULL, NULL),
+(10, 'Võ Đức Thanh', '$2y$12$bJmplhD4VqiBo1EVwgKyhujRdi7qfp1UKFek5lk.gfMK/pDRfK6mq', 'UE2gE9@gmail.com', NULL, 0, 0, NULL, NULL),
+(11, 'Bùi Ngọc Thảo', '$2y$12$d8MxAmwdtpGleMn1FaHyvuIegefzNygTBAM2whadKyr3Dvd66S23m', 'FEJj310@gmail.com', NULL, 0, 0, NULL, NULL),
+(12, 'Nguyễn Văn Thanh', '$2y$12$76rGJ.Vy0CXs4YLEp6IXkOguzBc41aDtKQT7DatiT4baSW0bIEEOK', 'YpaUh11@gmail.com', NULL, 0, 0, NULL, NULL),
+(13, 'Đỗ Đức Tú', '$2y$12$5wckvFcbLjBjpFE88i2fuO0ldHPFLWN72byN9DmzIcKx.KHtGpLM.', 'BjE6s12@gmail.com', NULL, 0, 0, NULL, NULL),
+(14, 'Võ Kim Hậu', '$2y$12$FPefzQErWMN.PGN7dSJGI.cpXs8cX2m5e1vn.hVOeo03g41ng4zSq', 'SMrUy13@gmail.com', NULL, 0, 0, NULL, NULL),
+(15, 'Nguyễn Kim Hoa', '$2y$12$e0MjtUiX.SWR6u.UpzqkRuSIftYQdEh6nKhs6uUmqm7eTX3kruhsa', 'nTH8N14@gmail.com', NULL, 0, 0, NULL, NULL),
+(16, 'Bùi Thị Hào', '$2y$12$lIPjMWq8HGUlSeHn/JJOQObvCv1FjrwpqDm7c9xhD3KHQ5SDtnzda', '7XyZT15@gmail.com', NULL, 0, 0, NULL, NULL),
+(17, 'Phan Thị Hậu', '$2y$12$zq1oc.O30sp2wVeoQSbKOuK7a//kNWWGqALQuVqaJ1vP.6uRfwRdW', 'K0WkX16@gmail.com', NULL, 0, 0, NULL, NULL),
+(18, 'Hồ Văn Thanh', '$2y$12$Gg/mvVFvpg1dGuX8ZCHo4OQGicoRVjk/FGE/CaTHw7BU23btMZq4u', 'JYPGJ17@gmail.com', NULL, 0, 0, NULL, NULL),
+(19, 'Đỗ  Thảo', '$2y$12$FDcq4e.o.wTVpRT5z9gAiOHWGzpVKnERmvZ3zvbV0pe0lQ3HSfE.G', 'y13E718@gmail.com', NULL, 0, 0, NULL, NULL),
+(20, 'Đỗ Ngọc Hải', '$2y$12$cBgFUyOXVntM1htQkT5PT.ML2BrMnSN6cMHL7Jz8a7E9oVvvmNUN2', 'A3qCf19@gmail.com', NULL, 0, 0, NULL, NULL),
+(21, 'Võ Thị Thảo', '$2y$12$Fl57KqoZobOv6xl.XA0HzulY6nFlkUbc1v7Hn/f2qH7OGldYYcOKi', 'ZJpLm20@gmail.com', NULL, 0, 0, NULL, NULL),
+(22, 'Phan  Tâm', '$2y$12$o3NvC2nqRdCG2iNgflRZqun/ykm5Pu3E47BCw95uGoxYnllu9KP8i', 'N2a7C21@gmail.com', NULL, 0, 0, NULL, NULL),
+(23, 'Hồ Minh Hoa', '$2y$12$rUpe5Nluy9izjOmgdUldr.AJR.kn.UR2tPWZe.8rl/f2jKBKpMumW', 'DuRL422@gmail.com', NULL, 0, 0, NULL, NULL),
+(24, 'Hồ Ngọc Hải', '$2y$12$4.JDAi93y7bKkdJPcsU/1uI8vSWGkX0fERrvvtV.ZzZkbySoWr956', 'MhNF523@gmail.com', NULL, 0, 0, NULL, NULL),
+(25, 'Phan Hoàng Thảo', '$2y$12$VjZH2jyUnwmotp8tCZqy8OvGdyI/xaJwdpRCP5I3zKE2xCqySflQq', 'o1ZUD24@gmail.com', NULL, 0, 0, NULL, NULL),
+(26, 'Bùi Ngọc Thảo', '$2y$12$LLFabFN0w1FyMzp3213Aze/vxCjoAWwtVVO2vrp.zsF/Q51Neu5RO', 'qiGkt25@gmail.com', NULL, 0, 0, NULL, NULL),
+(27, 'Lê Hoàng Hoa', '$2y$12$yFn417HSgnSKbhlkTQ3duOGqaLGW90.VOqJJiFDgPtmOR7O2Lkv/6', '2AbMs26@gmail.com', NULL, 0, 0, NULL, NULL),
+(28, 'Bùi Ngọc Thanh', '$2y$12$/rRHtNOHS2zsAj3gM3UsI.WKeGZBIF5D9RziNbL7H6/b5fiAAYq3y', '7vCGK27@gmail.com', NULL, 0, 0, NULL, NULL),
+(29, 'Phan Đức Hào', '$2y$12$87UK8mRrSBk3jWx9L/ooQu6wic0cHR8/xZGCZvuuOIF/tJA.KssZ2', 'u3iOK28@gmail.com', NULL, 0, 0, NULL, NULL),
+(30, 'Phan Minh Hoa', '$2y$12$ZARbmszUj9M2PQ0iLae8LeyZZ4Et9PKa0m2Ah32jdWnkQo/cb1NVe', 'qEATn29@gmail.com', NULL, 0, 0, NULL, NULL),
+(31, 'Lê Ngọc Hoa', '$2y$12$AF8e.jnR3VvCRFqIkimcIudZCNwgdPqHAW5E4F9bmPALeowHThLMm', 'rmVxe30@gmail.com', NULL, 0, 0, NULL, NULL),
+(32, 'Võ Kim Thảo', '$2y$12$3ppFhl.mCxWcjb4scRiDM.8N1wPjfcsXjIBDUAcFr17LjNphNlVBu', '91hx431@gmail.com', NULL, 0, 0, NULL, NULL),
+(33, 'Lê Đức Thanh', '$2y$12$ZwLFMK/vH8bbEkIpPElPF.4hM78GXDy0N42p/P2wM92vII9Xr1yZ.', '8M0Hk32@gmail.com', NULL, 0, 0, NULL, NULL),
+(34, 'Đỗ Kim Hào', '$2y$12$UxSFXiGO1efNdNfNzXnOCOjDqvgj5hwzx11B0POVm5D8wIG4cqEly', 'lNapZ33@gmail.com', NULL, 0, 0, NULL, NULL),
+(35, 'Đỗ Minh Thảo', '$2y$12$f1BsIcw68E/ercF8IQloVONRZFbzJrX9UksnkPsxJwH8d6qlb3qKO', 'BjR7T34@gmail.com', NULL, 0, 0, NULL, NULL),
+(36, 'Nguyễn Văn Hải', '$2y$12$GGIOX5Ma.IX0uCNiAth9YOSNJyG3Xm3pFfd2dTqRHxz9FdtU5NY4.', 'J89Bg35@gmail.com', NULL, 0, 0, NULL, NULL),
+(37, 'Nguyễn Đức Hào', '$2y$12$ZG3gTq5uN.zwJn3B8Dfo1esv7mUZBWV.B.FIWgKZi8.OxHu3NmZ.C', 'y60QV36@gmail.com', NULL, 0, 0, NULL, NULL),
+(38, 'Lê Đức Hào', '$2y$12$y3NIw8XcVm/VHp4TzXf9l.D44Vi/8w0AKCd1kmWCwxNdRkIKz7fY.', 'uCwP237@gmail.com', NULL, 0, 0, NULL, NULL),
+(39, 'Bùi Ngọc Tú', '$2y$12$a1SlikEHb/ryWl01sH10He/boEHEuJeJNBAVbSvd5nHeQbAzRZOJy', 'f5wt638@gmail.com', NULL, 0, 0, NULL, NULL),
+(40, 'Đỗ Minh Hải', '$2y$12$gLsSliIu3psxSGiC0j78XONhBUrywJCB5oDgEFH23irQBRwSQ/EYm', 'WBc3339@gmail.com', NULL, 0, 0, NULL, NULL),
+(41, 'Lê Hoàng Phương', '$2y$12$YuA2xHIkgxAY4hLmMjxkcObr2H9N1p3q79qgsIL5nPaXeiB7eg4wu', 'HEI9240@gmail.com', NULL, 0, 0, NULL, NULL),
+(42, 'Nguyễn Ngọc Tâm', '$2y$12$OFp1F9JQfHE5RIfFcbMAzOXjsbVgi.ERRD36CTgZ2fPYvmF4KLKe2', '5KhQ741@gmail.com', NULL, 0, 0, NULL, NULL),
+(43, 'Bùi  Hải', '$2y$12$EKKI4yvfwABPXLw0JYa7DOJypkZ4iUkNvsVWH20DAJpKmTCaq97yO', 'AYXh642@gmail.com', NULL, 0, 0, NULL, NULL),
+(44, 'Phan Thị Tú', '$2y$12$wlwg.ULRnZ0evpEyPcnRf.PHcF2DLzW3WtEN5UcOrYjgFbw2XnCeS', '6X4Kb43@gmail.com', NULL, 0, 0, NULL, NULL),
+(45, 'Bùi Thị Phương', '$2y$12$0uoOYKt488/VmK4gPyPliO/43kIrgIXFOcIfMlBbl2RHDqWTP8CRe', 'jZPnZ44@gmail.com', NULL, 0, 0, NULL, NULL),
+(46, 'Hồ Hoàng Hậu', '$2y$12$0YkI0DdK1HA1YF/ePdYp0e5OIS39znGybJV8b4cwyaSvZ49MrhCgW', 'slBeP45@gmail.com', NULL, 0, 0, NULL, NULL),
+(47, 'Đỗ Văn Thanh', '$2y$12$4e2Q2IYP0.6Kbb6jg55WeON7zluSj.e8QDBF8QXK9a9l2s0FBqgWK', 'QP4RG46@gmail.com', NULL, 0, 0, NULL, NULL),
+(48, 'Lê Ngọc Thanh', '$2y$12$Nz8D6zDZDS/5q7I712ltT./IjpvAnVPTiAaQjl1BV2pLPn4FdieKy', 'bAwTC47@gmail.com', NULL, 0, 0, NULL, NULL),
+(49, 'Đỗ Kim Phương', '$2y$12$mtT7Mu6T.vM6iQoRz8uS5uunjsKHCHa6JJcYAD0D/QXnN/BCn52wW', 'qjdAw48@gmail.com', NULL, 0, 0, NULL, NULL),
+(50, 'Đỗ Ngọc Tú', '$2y$12$.38mkLKvaEIR1lGcccDmHumsQH.os3JD9CywRh/SYEE6U5tyV86m2', 'FqK0L49@gmail.com', NULL, 0, 0, NULL, NULL),
+(51, 'Lê Ngọc Hậu', '$2y$12$7qJsjVH.m5NBSQFgeHy9I.2d3raNrFeDdJYoyhvOeFg7LbUaFtuKO', 'T3GCm50@gmail.com', NULL, 0, 0, NULL, NULL),
+(52, 'Lê Hoàng Hào', '$2y$12$uM.nm3/0BFPmxn0yoRWSu.IEkzeTWS1H8.5x/VAkBwhGkERl/9Tay', 'JQgNv51@gmail.com', NULL, 0, 0, NULL, NULL),
+(53, 'Phan Minh Thanh', '$2y$12$PyHV.qyOzf.Oq/SmenBr3.OIP9nwwGW/ikkt1y7MlolAKljmfbcty', 'KRJTi52@gmail.com', NULL, 0, 0, NULL, NULL),
+(54, 'Lê Đức Hậu', '$2y$12$LnX0S1pm3ewfEBlb73U39eiC.LFf4De0120H6kf9RUzK6emr0KTBq', 'SwjPL53@gmail.com', NULL, 0, 0, NULL, NULL),
+(55, 'Nguyễn Kim Thảo', '$2y$12$GmpvGmvCTcpgfPeOEIQedOJZLgSOoMtE/gfTf62dICdIKlMpH6vaK', 'PmdV854@gmail.com', NULL, 0, 0, NULL, NULL),
+(56, 'Lê Đức Thanh', '$2y$12$pnECLN7YbzGRPVQyN4yN5udpMFKWehsa6D0GNZWdTprOXHvTvCiUq', 'a1bwM55@gmail.com', NULL, 0, 0, NULL, NULL),
+(57, 'Lê Đức Tâm', '$2y$12$A2tmAf0QH/6dd1MTl35lfOpw9RKd49cH7uJx8z9MeGxGgttzdQhki', 'G8fsY56@gmail.com', NULL, 0, 0, NULL, NULL),
+(58, 'Bùi Hoàng Hậu', '$2y$12$FqAJ2Ez/0hV2ZRYJvcyQ1uewxrKPZvaGBIWyC7BcZbz8HObn2zu9C', 'O9NxY57@gmail.com', NULL, 0, 0, NULL, NULL),
+(59, 'Nguyễn Minh Phương', '$2y$12$jx7KNOhW1tF/xDTg1.2yjOWLTZuld65lkjQwzd5pSTnJIxeCIwTvy', 'eAaC058@gmail.com', NULL, 0, 0, NULL, NULL),
+(60, 'Đỗ Minh Hoa', '$2y$12$KRGjWVCP.kGhE6UU1Zm2iOO0/cj7gcNE.iWA7qM4fwZet1BJ8/XEW', '5x1AT59@gmail.com', NULL, 0, 0, NULL, NULL),
+(61, 'Hồ Thị Tú', '$2y$12$yqjVViKCALTRthVkXWLXKeHUCyjL3zNNGw6XtPxerGDT/RIO4mIPy', '96UgL60@gmail.com', NULL, 0, 0, NULL, NULL),
+(62, 'Bùi  Hào', '$2y$12$eHmNt3Uhk06rT4TsqxSoGOTe3TEHghbMAm98wZI32fOOAYUuIdvlW', 'HDrms61@gmail.com', NULL, 0, 0, NULL, NULL),
+(63, 'Bùi Kim Phương', '$2y$12$d5SF0hJ9c3ujozn.YqGzt.qDosr52aJQRjFnQvbIvCE0MaVnWAqD2', 'orMud62@gmail.com', NULL, 0, 0, NULL, NULL),
+(64, 'Bùi Minh Thảo', '$2y$12$Pmvcvj0tpwwIQ6NKi1B/COa10aEQXOhgR6Tb6TEfkfzJCZ/JU/sNW', '6dyjN63@gmail.com', NULL, 0, 0, NULL, NULL),
+(65, 'Nguyễn Kim Thảo', '$2y$12$GlF4vT2r.e.yY4/4NlW0v.yHr4db7YkuI/fq3L0/4Cdvd2W.2SpG6', 'VhQUc64@gmail.com', NULL, 0, 0, NULL, NULL),
+(66, 'Đỗ Kim Thảo', '$2y$12$LAGKpUWUmb0KWlRB/IdsgOorCr5oRfbwVarEjySqjWTGEynGlIqDO', '9l2zo65@gmail.com', NULL, 0, 0, NULL, NULL),
+(67, 'Hồ Đức Hoa', '$2y$12$dnlhZVCPzRWLyi8iQgKr2uYQRShhwikT5j7OnXeGujmqfRt8z3GcS', 'SSTng66@gmail.com', NULL, 0, 0, NULL, NULL),
+(68, 'Võ Hoàng Hải', '$2y$12$YD/wad4y1YxEYDvt51egSOfSuhhA/y6Q6tyl2M2Rdjhx7YytZuW4G', 'G0rqZ67@gmail.com', NULL, 0, 0, NULL, NULL),
+(69, 'Đỗ Hoàng Tâm', '$2y$12$BpvfBZzFf9StckzGclw6ieTqLs5xWkA4c/fFIFSMh501ZHiFcoqfG', '60Jnx68@gmail.com', NULL, 0, 0, NULL, NULL),
+(70, 'Nguyễn Ngọc Hậu', '$2y$12$em3AqZgonMFueqp83n88QOFbK2PrYQiqp2HwSPcnAmKf1uFEfjzZ.', 'NoV6A69@gmail.com', NULL, 0, 0, NULL, NULL),
+(71, 'Võ Văn Phương', '$2y$12$B26cBy3sippfkG78wdDd1OrtGYy6DFe3XM6/vO7nLd9uazgnLcs/a', 'YgeYC70@gmail.com', NULL, 0, 0, NULL, NULL),
+(72, 'Hồ Văn Tú', '$2y$12$Sgessulmd8RYD1DmfyCw.u7HGzC9zRoF7guEsyq9fQCDi6Y5BbpZm', 'UPjIA71@gmail.com', NULL, 0, 0, NULL, NULL),
+(73, 'Đỗ Hoàng Hoa', '$2y$12$Gi4MvF2kUiPoAr9GkSpXbeHOUvfFglHekaOuTEQBasOKgZSaJjA2O', '6jPqb72@gmail.com', NULL, 0, 0, NULL, NULL),
+(74, 'Bùi Ngọc Thanh', '$2y$12$geno/2DvGr08dE4JGxDhZ.l.1HccbqrvzpfhytoXas3BhuGoRCg22', 'qTQF473@gmail.com', NULL, 0, 0, NULL, NULL),
+(75, 'Hồ Ngọc Phương', '$2y$12$5xfo0Pahw2WPp3z4IqRzM.2ZatzNz237kdB0EUFFPbUlOemR7wno6', 'DSkFQ74@gmail.com', NULL, 0, 0, NULL, NULL),
+(76, 'Nguyễn Thị Phương', '$2y$12$rVReQbFIu/J5aQ11vfB.AeVM7XKeCFO8HO/8NkehceVZgXGCXmUau', 'xUrrc75@gmail.com', NULL, 0, 0, NULL, NULL),
+(77, 'Lê Văn Phương', '$2y$12$AQg9dj3KKXxc0Tnw3GxAhup0VfY6bR1t7yj5r2rpW2kI2LUY20vXO', 'khgcS76@gmail.com', NULL, 0, 0, NULL, NULL),
+(78, 'Võ Ngọc Tú', '$2y$12$EeMfQXog0hZGkvNOzUbY9utfhnHOoqQ1Q8cVE1fL2YN1FJMsOpcEC', 'IGbSV77@gmail.com', NULL, 0, 0, NULL, NULL),
+(79, 'Nguyễn Thị Tú', '$2y$12$yxNfM910gMAeszwWJCDYIuCRgKFA4PkvxgrGD7TcbQpZVkrQwfKae', 'Mjvhh78@gmail.com', NULL, 0, 0, NULL, NULL),
+(80, 'Hồ Minh Hào', '$2y$12$6WQ6vgJ5vF/w5Snfs.qXZ.t1xFLtiPSrG3vTwa689ZS5D79MKVJVi', 'rByV779@gmail.com', NULL, 0, 0, NULL, NULL),
+(81, 'Võ Ngọc Tú', '$2y$12$6w.13QsfTL/CyK5iOEhgfuE5mRq5WFRD2HvnZSsrwPFP8XnOOYaJu', 'KzpQQ80@gmail.com', NULL, 0, 0, NULL, NULL),
+(82, 'Lê Hoàng Thanh', '$2y$12$KLb2J59UhVFxx7KZQucdjePuX23cQqyMM7TKlaPtYLZyoczQ3uWya', 'HVdOT81@gmail.com', NULL, 0, 0, NULL, NULL),
+(83, 'Nguyễn  Phương', '$2y$12$lRqHcw.6WWKdvJKFcdVAD.7bTnXw5G2/BsJpk//QNFsGvHQG3TP7e', '45mDd82@gmail.com', NULL, 0, 0, NULL, NULL),
+(84, 'Đỗ Thị Hải', '$2y$12$fBq30Gow4tkKC5/NoW0FneiSEKQEhCl.wfpxWmdfxi82XpuInuoFa', 'xCZeM83@gmail.com', NULL, 0, 0, NULL, NULL),
+(85, 'Nguyễn Ngọc Hậu', '$2y$12$ZHzuKN2K9MtXRkUvvJuKpOcd4ysST79rMstqdqRgy4A6CH/wBE/ZO', 'GcjGv84@gmail.com', NULL, 0, 0, NULL, NULL),
+(86, 'Võ Minh Hào', '$2y$12$cm2HF06lFomrwb.xomFBYubi.wCVWt4kF2CbZRU851xV.xEvax//y', 'zuhD985@gmail.com', NULL, 0, 0, NULL, NULL),
+(87, 'Bùi  Tâm', '$2y$12$UoMqsDRkRkmdgVjIq3SwAOWFZEalAK.02NGXxjOAqRPu1o7js7F42', '9snhb86@gmail.com', NULL, 0, 0, NULL, NULL),
+(88, 'Lê Ngọc Phương', '$2y$12$ShKb/rq6lZKRpHDkMRqSZes2IKTVMeeFfsa9.RN3Jxx2be3KbpkSe', 'LsJvB87@gmail.com', NULL, 0, 0, NULL, NULL),
+(89, 'Phan Hoàng Hậu', '$2y$12$F09fHRpNYkXKRbIPqUcb0ODZwawzGCjwDEY1yDlUB1Tl9o/N03kiq', 'Kyoun88@gmail.com', NULL, 0, 0, NULL, NULL),
+(90, 'Hồ  Thảo', '$2y$12$xaFnW5MBAyBNQutd5oGF0uzAwUbc.Bhj7XTUzXijuggmzIxCW4HlK', '1PqXB89@gmail.com', NULL, 0, 0, NULL, NULL),
+(91, 'Lê Đức Hoa', '$2y$12$61DFUF7k5nZJxmYiZjoj1O0FEWm8rz4bSn6STNS8zElReCgT/K1yu', '7t6d090@gmail.com', NULL, 0, 0, NULL, NULL),
+(92, 'Hồ Minh Hoa', '$2y$12$iqFnmPd160dZ7zwTgGEhoe86pBWJk22yb/ZZN2wK4u4v5.X/ixqni', 'A4FZs91@gmail.com', NULL, 0, 0, NULL, NULL),
+(93, 'Phan Kim Hải', '$2y$12$yrCfHGP1Vq1/PZg1HOC/yeEObf/W03FA2hs5ZlFhysgafwq3s.1RK', 'pQEHk92@gmail.com', NULL, 0, 0, NULL, NULL),
+(94, 'Lê Kim Thảo', '$2y$12$OsSgpBD8iY4ZQROz3bsGCOE9bw7oGmipdVdi2jKitANr7NRnyj83q', 'QH0JC93@gmail.com', NULL, 0, 0, NULL, NULL),
+(95, 'Phan Ngọc Thanh', '$2y$12$uaibvdQ9PsNhTXiSTI66MOTixmiSun33DDLWFCdpT2APqLHYZZP9q', 'nNMVx94@gmail.com', NULL, 0, 0, NULL, NULL),
+(96, 'Bùi Văn Hào', '$2y$12$baSRY8LX6o1J2s8DVE84zOgOOWWqk01WtgpEJF8u29G.W1e8UU/N2', 'KFqez95@gmail.com', NULL, 0, 0, NULL, NULL),
+(97, 'Lê Thị Hải', '$2y$12$T2yHEsK6CQiiTs68C49vL.SvmibNOcx0cWWWSDKSeA4XtJH1uycSu', 'JIBG096@gmail.com', NULL, 0, 0, NULL, NULL),
+(98, 'Nguyễn Thị Phương', '$2y$12$78wWqkEHAK/YrscxjGE.BOcFnRbOu6uBzI4s/j7b5BrlZgfBkzlbW', 'Ai5c597@gmail.com', NULL, 0, 0, NULL, NULL),
+(99, 'Võ Đức Hậu', '$2y$12$NNDiCTCUt3JpMWbFCn.aZ.e.k3WyEoIh9UahX9Ma3QrmYNODTgUda', 'oikZ098@gmail.com', NULL, 0, 0, NULL, NULL),
+(100, 'Nguyễn Thị Thanh', '$2y$12$o7bsyj2w2rS3ZEXUt7Exr.pQLvPywB.AtkNWEp8.zRbBeWnnJ7FUi', 'eAFmF99@gmail.com', NULL, 0, 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tin`
+--
+
+CREATE TABLE `tin` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tieude` varchar(255) NOT NULL,
+  `xem` int(11) NOT NULL,
+  `ngayDang` date DEFAULT NULL,
+  `idLoai` int(11) NOT NULL,
+  `tomTat` text DEFAULT NULL,
+  `noiDung` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tin`
+--
+
+INSERT INTO `tin` (`id`, `tieude`, `xem`, `ngayDang`, `idLoai`, `tomTat`, `noiDung`, `created_at`, `updated_at`) VALUES
+(1, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 12, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(2, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 12, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(3, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 13, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(4, 'Kỷ lục thời chiến', 850, '2025-03-04', 14, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(5, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 15, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(6, 'Cách làm số mi', 750, '2025-03-06', 13, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(7, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(8, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 14, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(9, 'BCI Asia gives architecture awards', 600, '2025-03-09', 15, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(10, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 15, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(11, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(12, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(13, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(14, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(15, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(16, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(17, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(18, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(19, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(20, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(21, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(22, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(23, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(24, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(25, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(26, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(27, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(28, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(29, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(30, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(31, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(32, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(33, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(34, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(35, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(36, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(37, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(38, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(39, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(40, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'Nguyễn Văn A', 'quyendvpa00242@gmail.com', '0000-00-00 00:00:00', '$2y$12$2HjKUpmKW4L.iCm9e6YOx.7k.m1LNuE1OVX/hTykixKelV9DiE1fq', NULL, '2025-03-27 06:57:29', '2025-03-27 00:42:46'),
+(2, 'user', 'Hoàng Thúc khang', 'khanggo123m@gmail.com', NULL, '$2y$12$ABbl9IAd7heGIDZv20lXJ.i0LShhNcLAaeE7CKaAL6yjPTWxrOBdy', NULL, '2025-03-28 01:06:35', '2025-03-28 01:06:35'),
+(3, 'user', 'Đậu Quyền', 'quyendau1603@gmail.com', NULL, '$2y$12$q5Rt62ttRG/giEfvryXRa.Ax8q0oTZwWAyomhfFxj2cQCOUUivG.O', NULL, '2025-03-28 01:15:23', '2025-03-28 01:58:19'),
+(4, 'user', 'Đạt Jisun', 'jisunn18@gmail.com', NULL, '$2y$12$Tp2cRc2ENQGXdJlGqEcCFOOsmitF0MBgoSFLDrczsEwMW0ayr4/yC', NULL, '2025-03-28 01:40:47', '2025-03-28 01:40:47');
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Chỉ mục cho bảng `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Chỉ mục cho bảng `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_comment-news` (`news_id`),
+  ADD KEY `fk_comment-user` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `dienthoai`
+--
+ALTER TABLE `dienthoai`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `dienthoai_tendt_unique` (`tenDT`),
+  ADD KEY `dienthoai_idloai_foreign` (`idLoai`);
+
+--
+-- Chỉ mục cho bảng `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Chỉ mục cho bảng `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Chỉ mục cho bảng `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `loaisp`
+--
+ALTER TABLE `loaisp`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `loaisp_tenloai_unique` (`tenLoai`);
+
+--
+-- Chỉ mục cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_category` (`id_category`);
+
+--
+-- Chỉ mục cho bảng `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Chỉ mục cho bảng `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Chỉ mục cho bảng `thanhvien`
+--
+ALTER TABLE `thanhvien`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `tin`
+--
+ALTER TABLE `tin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `dienthoai`
+--
+ALTER TABLE `dienthoai`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=901;
+
+--
+-- AUTO_INCREMENT cho bảng `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `loaisp`
+--
+ALTER TABLE `loaisp`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT cho bảng `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT cho bảng `thanhvien`
+--
+ALTER TABLE `thanhvien`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT cho bảng `tin`
+--
+ALTER TABLE `tin`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_comment-news` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`),
+  ADD CONSTRAINT `fk_comment-user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `dienthoai`
+--
+ALTER TABLE `dienthoai`
+  ADD CONSTRAINT `dienthoai_idloai_foreign` FOREIGN KEY (`idLoai`) REFERENCES `loaisp` (`id`);
+
+--
+-- Các ràng buộc cho bảng `news`
+--
+ALTER TABLE `news`
+  ADD CONSTRAINT `fk_category` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

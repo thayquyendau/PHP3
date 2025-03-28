@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\NewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;  
@@ -28,9 +28,9 @@ Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('
 
 
 Route::get('/user', [UserController::class, 'index']);
-Route::get('/product', [ProductController::class, 'index'])->name('products');
-Route::get('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
-Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');
-Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');;
-Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::get('/product', [NewController::class, 'index'])->name('products');
+Route::get('/product/delete/{id}', [NewController::class, 'destroy'])->name('product.delete');
+Route::get('/product/add', [NewController::class, 'create'])->name('product.add');
+Route::post('/product/store', [NewController::class, 'store'])->name('product.store');;
+Route::get('/product/edit/{id}', [NewController::class, 'edit'])->name('product.edit');
+Route::put('/product/update/{id}', [NewController::class, 'update'])->name('product.update');

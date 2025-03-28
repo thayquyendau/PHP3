@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use function Psy\debug;
 
-class ProductController extends Controller
+class NewController extends Controller
 {
     /**
      * Display a listing of the resource.

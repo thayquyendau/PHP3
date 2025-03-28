@@ -32,7 +32,7 @@ class HomeController extends Controller
                 //   ->orWhere('author', 'LIKE', "%{$keyword}%");
             });
         }
-        $news = $query->orderBy('created_at', 'desc')->get();
+        $news = $query->orderBy('created_at', 'desc')->take(4)->get();
         $popularNews = DB::table('news')->select('*')->orderBy('views', 'desc')->take(4)->get();
 
         return view('home', compact('news', 'featuredNews', 'categories', 'popularNews'));
