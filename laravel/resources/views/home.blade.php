@@ -12,6 +12,7 @@
     {{-- <a href="/product">Xem san pham</a>
      --}}
      <a href="{{ route('products')}}">Ql products</a>
+     <a href="{{ route('login')}}">Ql products</a>
    
 </body>
 </html>
