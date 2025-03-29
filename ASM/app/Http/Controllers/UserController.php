@@ -67,8 +67,21 @@ class UserController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $user = DB::table('users')
+            ->where('email', $request->email)
+            ->first();
 
-        return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
+        if ($user && Hash::check($request->password, $user->password)) { // So sánh mật khẩu
+            session(['user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role ?? 'user',
+            ]]);
+            return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+        }
+
+        // return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
     }
 
     public function logout()
