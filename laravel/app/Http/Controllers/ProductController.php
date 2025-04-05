@@ -35,7 +35,8 @@ class ProductController extends Controller
     }
 
     public function create()
-    {    $categories = DB::table('categories')->select('*')->get();
+    {
+        $categories = DB::table('categories')->select('*')->get();
         return view('product-add', compact('categories'));
     }
 
@@ -43,34 +44,35 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required',
-        'price' => 'required|numeric',
-        'stock' => 'required|integer',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-    ]);
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
-    // Xử lý upload hình ảnh
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = time() . '_' . $image->getClientOriginalName(); // Tạo tên file duy nhất
-        $image->move(public_path('images'), $imageName); // Lưu vào public/images
-        $path = 'images/' . $imageName; // Đường dẫn tương đối
+        // Xử lý upload hình ảnh
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Tạo tên file duy nhất
+            $image->move(public_path('images'), $imageName); // Lưu vào public/images
+            $path = 'images/' . $imageName; // Đường dẫn tương đối
+        }
+
+
+        // Lưu vào database
+        $product = new Product;
+        $product->name = $request->input('name');
+        $product->id_category = $request->input('id_category');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+        $product->stock = $request->input('stock');
+        $product->image = $path; // Lưu đường dẫn tương đối
+        $product->save();
+
+        return redirect()->route('products')->with('success', 'Thêm sản phẩm thành công');
     }
-
-    // Lưu vào database
-    $product = new Product;
-    $product->name = $request->input('name');
-    $product->id_category = $request->input('id_category');
-    $product->price = $request->input('price');
-    $product->description = $request->input('description');
-    $product->stock = $request->input('stock');
-    $product->image = $path; // Lưu đường dẫn tương đối
-    $product->save();
-
-    return redirect()->route('products')->with('success', 'Thêm sản phẩm thành công');
-}
 
     /**
      * Display the specified resource.
@@ -91,19 +93,30 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required'
         ]);
+
+        // Xử lý upload hình ảnh
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+            $path = 'images/' . $imageName;
+        } else {
+            $path = Product::find($id)->image; // Giữ ảnh cũ nếu không upload ảnh mới
+        }
+
         // $path = $request->file('image')->store('images', 'public');
         $product = (new Product)->find($id);
         $product->name = $request->input('name');
         $product->price = $request->input('price');
+        $product->image = $path;
         $product->description = $request->input('description');
         $product->stock = $request->input('stock');
         $product->save();
 
-        if ($product->save()) {
-            return redirect()->route('products')->with('success', 'Sua sản phẩm thành công');
-        }
+        return redirect()->route('products')->with('success', 'Sua sản phẩm thành công');
         // return redirect()->route('product.add')->with('error', 'vui long dien day du thong tin!');
     }
 
@@ -111,8 +124,19 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        Product::find($id)->delete();
-        return redirect()->route('products')->with('success', 'Xoa sản phẩm thành công');
+{
+    // Tìm sản phẩm theo ID, nếu không tìm thấy sẽ ném ngoại lệ 404
+    $product = Product::findOrFail($id);
+    // Lấy đường dẫn ảnh từ cơ sở dữ liệu
+    $imagePath = public_path($product->image);
+    // Kiểm tra và xóa file ảnh nếu tồn tại
+    if (file_exists($imagePath)) {
+        unlink($imagePath); // Xóa file ảnh khỏi thư mục
     }
+    // Xóa bản ghi sản phẩm khỏi cơ sở dữ liệu
+    $product->delete();
+
+    // Chuyển hướng về danh sách sản phẩm với thông báo thành công
+    return redirect()->route('products')->with('success', 'Xóa sản phẩm thành công');
+}
 }

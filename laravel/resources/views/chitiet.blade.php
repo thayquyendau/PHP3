@@ -1,1 +1,0 @@
-<h1>Day la trang chi tiet tin tuc co id la: {{ $id }}</h1>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NewController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;  
@@ -27,10 +27,10 @@ Route::get('/reset-password/{token}', [UserController::class, 'showResetPassword
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/product', [NewController::class, 'index'])->name('products');
-Route::get('/product/delete/{id}', [NewController::class, 'destroy'])->name('product.delete');
-Route::get('/product/add', [NewController::class, 'create'])->name('product.add');
-Route::post('/product/store', [NewController::class, 'store'])->name('product.store');;
-Route::get('/product/edit/{id}', [NewController::class, 'edit'])->name('product.edit');
-Route::put('/product/update/{id}', [NewController::class, 'update'])->name('product.update');
+// Route::get('/user', [UserController::class, 'index']);
+Route::get('/news', [NewsController::class, 'index'])->name('admin.news.list');
+Route::get('/news-add', [NewsController::class, 'create'])->name('admin.news.add');
+Route::post('/news-store', [NewsController::class, 'store'])->name('admin.news.store');
+Route::get('/news/delete/{id}', [NewsController::class, 'destroy'])->name('admin.news.delete');
+Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('admin.news.edit');
+Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('admin.news.update');

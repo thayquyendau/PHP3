@@ -9,6 +9,6 @@ class Category extends Model
     // Quan he mot danh muc co nhieu san pham
     public function products()
     {
-        return $this->hasMany(Product::class, 'id_category', 'id');
+        return $this->hasMany(News::class, 'id_category', 'id');
     }
 }

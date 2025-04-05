@@ -5,7 +5,7 @@
     </div>
 @endif
 <!-- Form thêm sản phẩm -->
-<form action="{{ route('product.update', $product->id) }}" method="POST">
+<form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT') <!-- Thêm dòng này để giả lập PUT -->
     {{-- bao ve du lieu nhap vao --}}
@@ -28,6 +28,11 @@
     <div class="form-group">
         <label for="stock">So luong</label>
         <input type="number" name="stock" id="stock" class="form-control" value="{{ $product->stock }}">
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">hinh anh:</label>
+        <p><img src="{{ asset($product->image)  }}" width="100" alt=""></p>
+        <input type="file" name="image" id="image" value="{{ old($product->image)}}" class="form-control">
     </div>
 
     <div class="form-group">

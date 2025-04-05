@@ -18,7 +18,7 @@ class UserController extends Controller
     public function login()
     {
         $categories = DB::table('categories')->select('*')->get();
-        return view('login', compact('categories'));
+        return view('auth/login', compact('categories'));
     }
 
     public function loginPost(Request $request)
@@ -48,7 +48,7 @@ class UserController extends Controller
     public function register()
     {
         $categories = DB::table('categories')->select('*')->get();
-        return view('register', compact('categories'));
+        return view('auth/register', compact('categories'));
     }
 
     public function registerPost(Request $request)
@@ -102,7 +102,7 @@ class UserController extends Controller
     public function showForgotPasswordForm()
     {   
         $categories = DB::table('categories')->select('*')->get();
-        return view('forgot-password', compact('categories'));
+        return view('auth/forgot-password', compact('categories'));
     }
 
     // Gửi email chứa liên kết đặt lại mật khẩu
@@ -128,7 +128,7 @@ class UserController extends Controller
     public function showResetPasswordForm($token)
     {   
         $categories = DB::table('categories')->select('*')->get();
-        return view('reset-password', ['token' => $token], compact('categories'));
+        return view('auth/reset-password', ['token' => $token], compact('categories'));
     }
 
     // Xử lý đặt lại mật khẩu
@@ -152,7 +152,7 @@ class UserController extends Controller
 
         // Trả về phản hồi
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', 'Mật khẩu của bạn đã được đặt lại thành công!')
+                    ? redirect()->route('auth/login')->with('status', 'Mật khẩu của bạn đã được đặt lại thành công!')
                     : back()->withErrors(['email' => 'Token không hợp lệ hoặc đã hết hạn.']);
     }
 }

@@ -49,7 +49,7 @@
                                 <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->description }}</td>
-                                <td><img src="{{ asset($product->image) }}" width="100" alt="{{ $product->name}}"></td>
+                                <td><img src="{{ asset($product->image) }}" width="100" alt="{{ $product->name }}"></td>
                                 <td>
                                     <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-primary me-1">Sửa</a>
                                     <a href="{{ route('product.delete', $product->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>

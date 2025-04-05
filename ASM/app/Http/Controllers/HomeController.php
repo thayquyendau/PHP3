@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $categories = DB::table('categories')->select('*')->get();
         // Lấy tin nổi bật
-        $featuredNews = DB::table('news')->select('*')->paginate(4);
+        $featuredNews = DB::table('news')->select('*')->where('status' ,'=', 'published')->paginate(4);
         $query = DB::table('news')->select('*');
 
         // Lọc theo danh mục nếu có request truyền vào
@@ -32,8 +32,8 @@ class HomeController extends Controller
                 //   ->orWhere('author', 'LIKE', "%{$keyword}%");
             });
         }
-        $news = $query->orderBy('created_at', 'desc')->take(4)->get();
-        $popularNews = DB::table('news')->select('*')->orderBy('views', 'desc')->take(4)->get();
+        $news = $query->orderBy('created_at', 'desc')->take(4)->where('status' ,'=', 'published')->get();
+        $popularNews = DB::table('news')->select('*')->orderBy('views', 'desc')->where('status' ,'=', 'published')->take(4)->get();
 
         return view('home', compact('news', 'featuredNews', 'categories', 'popularNews'));
     }

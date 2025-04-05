@@ -13,6 +13,13 @@ return [
     | "mailers" array. Examples of each type of mailer are provided.
     |
     */
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
 
     'default' => env('MAIL_MAILER', 'log'),
 
