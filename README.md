@@ -6,7 +6,7 @@
 - **lab1**: Bài tập 1 - [Mô tả ngắn về lab1]
 - **lab2**: Bài tập 2 - [Mô tả ngắn về lab2]
 - **lab3**: Bài tập 3 - [Mô tả ngắn về lab3]
-- **laravel**: Dự án Laravel - [Mô tả ngắn về dự án Laravel]
+- **laravel**: Dự án Laravel - [Để học tập và test demo]
 - **noteDB**: Ghi chú về cơ sở dữ liệu
 
 ## Hướng dẫn chạy
