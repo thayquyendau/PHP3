@@ -1,5 +1,5 @@
 @extends('admin/layout')
-@section('title', 'Add News')
+@section('title', 'Thêm Tin Tức')
 @section('content-admin')
 
     <div class="container mt-5">
@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <!-- Form thêm sản phẩm -->
+        <!-- Form thêm tin tức -->
         <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <select name="id_category" id="">
@@ -32,8 +32,7 @@
 
             <div class="mb-3">
                 <label for="content" class="form-label">Nội dung:</label>
-                <textarea type="text" name="content" id="content" class="form-control" value="{{ old('content') }}">
-                </textarea>
+                <textarea name="content" id="content" class="form-control" rows="5">{{ old('content') }}</textarea>
             </div>
 
             <div class="mb-3">
@@ -44,12 +43,12 @@
                 <label for="status" class="form-label">Trạng thái</label>
                 <select name="status" class="form-control">
                     <option value="">Chọn trạng thái:</option>
-                    <option value="draft">Thư nháp</option>
+                    <option value="draft">Tin nháp</option>
                     <option value="published">Đã xuất bản</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Them hinh anh:</label>
+                <label for="image" class="form-label">Thêm hình ảnh:</label>
                 <input type="file" name="img" id="image" class="form-control" value="{{ old('img') }}">
             </div>
 

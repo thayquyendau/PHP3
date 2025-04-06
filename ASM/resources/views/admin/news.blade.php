@@ -1,12 +1,12 @@
     @extends('admin/layout')
-    @section('title', 'Manager News')
+    @section('title', 'Quản Lý Tin Tức')
     @section('content-admin')
         <div class="container mt-5">
             <h1 class="text-center mb-4 text-danger">Quản Lý Tin tức</h1>
-            <!-- Nút Thêm Sản Phẩm -->
+            <!-- Nút Thêm tin tức -->
             <div class="text-end mb-3">
                 <a href="{{ route('admin.news.add') }}" class="btn btn-success btn-lg">
-                   Thêm Tin tức
+                    Thêm Tin tức
                 </a>
             </div>
 
@@ -37,31 +37,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($news as $new)
-                            <!--Lay Sản phẩm không phải của loại IPhone -->
-                            {{-- @php
-                            if ($new->category_name != 'IPhone'):
-                            @endphp --}}
+                        @foreach ($news as $new)   
                             <tr>
                                 <td>{{ $new->id }}</td>
-                                {{-- <td>{{ $new->category->name}}</td> lay theo cach dung with thiet lap quan he --}}           
-                                <td>{{ $new->category_name}}</td> 
+                                {{-- <td>{{ $new->category->name}}</td> lay theo cach dung with thiet lap quan he --}}
+                                <td>{{ $new->category_name }}</td>
                                 <td>{{ $new->title }}</td>
                                 <td>{{ $new->content }} </td>
                                 <td>{{ $new->author }}</td>
                                 <td>{{ $new->status }}</td>
                                 <td>{{ $new->views }}</td>
-                                <td><img src="{{ asset($new->img) }}" width="100" alt="{{ $new->title}}"></td>
-                                <td>{{ $new->created_at}}</td>
-                                <td>{{ $new->updated_at}}</td>
+                                <td><img src="{{ asset($new->img) }}" width="100" alt="{{ $new->title }}"></td>
+                                {{-- <td>{{ date('d-m-Y H:m:s', strtotime($new->created_at)) }}</td>  ko dùng đc timezone--}} 
+                                <td>{{ \Carbon\Carbon::parse($new->created_at)->timezone('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s') }}
+
+                                <td>
+                                    @if (empty($new->updated_at))
+                                        {{ null }}
+                                    @else
+                                        {{ \Carbon\Carbon::parse($new->updated_at)->format('d-m-Y H:i:s') }}
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.news.edit', $new->id) }}" class="btn btn-primary">Sửa</a>
-                                    <a href="{{ route('admin.news.delete', $new->id) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                                    <a href="{{ route('admin.news.delete', $new->id) }}" class="btn btn-danger"
+                                        onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
                                 </td>
                             </tr>
-                            {{-- @php
-                            endif; 
-                            @endphp --}}
                         @endforeach
                     </tbody>
                 </table>
