@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Middleware\AuthAdmin;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;  
+use Illuminate\Support\Facades\DB;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -27,10 +30,21 @@ Route::get('/reset-password/{token}', [UserController::class, 'showResetPassword
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
 
-// Route::get('/user', [UserController::class, 'index']);
-Route::get('/news', [NewsController::class, 'index'])->name('admin.news.list');
-Route::get('/news-add', [NewsController::class, 'create'])->name('admin.news.add');
-Route::post('/news-store', [NewsController::class, 'store'])->name('admin.news.store');
-Route::get('/news/delete/{id}', [NewsController::class, 'destroy'])->name('admin.news.delete');
-Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('admin.news.edit');
-Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('admin.news.update');
+//Midedleware
+Route::middleware([AuthAdmin::class, 'handle'])->group(function () {
+    // Quản lí tin tức
+    Route::get('/news', [NewsController::class, 'index'])->name('admin.news.list');
+    Route::get('/news-add', [NewsController::class, 'create'])->name('admin.news.add');
+    Route::post('/news-store', [NewsController::class, 'store'])->name('admin.news.store');
+    Route::get('/news/delete/{id}', [NewsController::class, 'destroy'])->name('admin.news.delete');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('admin.news.edit');
+    Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('admin.news.update');
+
+    // Quản lí danh mục
+    Route::get('/category', [CategoryController::class, 'index'])->name('admin.category.list');
+    Route::get('/category-add', [CategoryController::class, 'create'])->name('admin.category.add');
+    Route::post('/category-store', [CategoryController::class, 'store'])->name('admin.category.store');
+    Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('admin.category.delete');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
+    Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+});

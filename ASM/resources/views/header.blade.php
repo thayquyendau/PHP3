@@ -41,6 +41,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     @if (session('user')['role'] == 'admin')
                                         <li><a class="dropdown-item" href="{{ route('profile', session('user')['id']) }}">Thông tin tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('admin.category.list') }}">Quản lý danh mục</a></li>
                                         <li><a class="dropdown-item" href="{{ route('admin.news.list') }}">Quản lý tin tức</a></li>
                                     @else
                                         <li><a class="dropdown-item" href="{{ route('profile', session('user')['id']) }}">Thông tin tài khoản</a></li>

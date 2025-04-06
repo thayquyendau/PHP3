@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Nullable;
 
 use function Psy\debug;
 
@@ -38,9 +39,8 @@ class NewsController extends Controller
     public function create()
     {   
         // dd('ok');
-        $data = News::all();
         $categories = DB::table('categories')->select('*')->get();
-        return view('admin/news-add', compact('categories', 'data'));
+        return view('admin/news-add', compact('categories'));
     }
 
     /**
@@ -51,8 +51,8 @@ class NewsController extends Controller
     // Validation rules
     $request->validate([
         'id_category' => 'required|integer|exists:categories,id',
-        'title' => 'required|string|max:255',
-        'content' => 'required|string|max:10000', // Sửa max:10,000 thành max:10000 (không dùng dấu phẩy)
+        'title' => 'required|string|max:255|unique:news,title',
+        'content' => 'required|string|max:10000', 
         'author' => 'required|string|max:100',
         'status' => 'required|in:draft,published',
         'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Sửa 'img' thành 'image'
@@ -63,8 +63,8 @@ class NewsController extends Controller
     if ($request->hasFile('img')) {
         $img = $request->file('img');
         $imgName = time() . '_' . $img->getClientOriginalName(); // Tạo tên file duy nhất
-        $img->move(public_path('images'), $imgName); // Lưu vào thư mục public/images
-        $path = 'images/' . $imgName; // Đường dẫn tương đối
+        $img->move(public_path('uploads/news'), $imgName); // Lưu vào thư mục public/images
+        $path = 'uploads/news/' . $imgName; // Đường dẫn tương đối
     }
 
     // Lưu vào database
@@ -77,9 +77,10 @@ class NewsController extends Controller
     $new->img = $path; // Lưu đường dẫn ảnh
     $new->views = 0;
     $new->created_at = now(); // Gán thời gian hiện tại cho created_at
+    $new->updated_at = null;
     $new->save();
 
-    return redirect()->route('admin.news.list')->with('success', 'Thêm sản phẩm thành công');
+    return redirect()->route('admin.news.list')->with('success', 'Thêm tin tức thành công');
 }
 
     /**
@@ -98,23 +99,44 @@ class NewsController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'title' => 'required|string|max:255|unique:news,title,' . $id,
+            'content' => 'required|string',
+            'author' => 'nullable|string|max:100',
+            'views' => 'nullable|integer|min:0',
+            'status' => 'required|in:draft,published',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'id_category' => 'required|exists:categories,id'
         ]);
-        // $path = $request->file('image')->store('images', 'public');
-        $new = (new News)->find($id);
-        $new->name = $request->input('name');
-        $new->price = $request->input('price');
-        $new->description = $request->input('description');
-        $new->stock = $request->input('stock');
+    
+        $new = News::findOrFail($id);
+        $new->title = $request->input('title');
+        $new->content = $request->input('content');
+        $new->author = $request->input('author');
+        $new->views = $request->input('views');
+        $new->status = $request->input('status');
+        $new->id_category = $request->input('id_category');
+        $new->updated_at = now(); // Cập nhật thời gian sửa đổi
+    
+        // Xử lý ảnh mới nếu có
+        if ($request->hasFile('img')) {
+            if ($new->img && file_exists(public_path($new->img))) {
+                unlink(public_path($new->img));
+            }
+    
+            $file = $request->file('img');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/news'), $fileName);
+            $new->img = 'uploads/news/' . $fileName;
+        }
+    
         $new->save();
 
         if ($new->save()) {
-            return redirect()->route('admin.news.list')->with('success', 'Sua sản phẩm thành công');
+            return redirect()->route('admin.news.list')->with('success', 'Sửa tin tức thành công');
+        }else{
+             return redirect()->route('new.add')->with('error', 'Vui lòng sửa đúng thông tin!');
         }
-        // return redirect()->route('new.add')->with('error', 'vui long dien day du thong tin!');
+        
     }
 
     /**
@@ -122,7 +144,13 @@ class NewsController extends Controller
      */
     public function destroy(string $id)
     {
+        // Xóa ảnh trong thư mục nếu có
+        $new = News::find($id);
+        if ($new && $new->img && file_exists(public_path($new->img))) {
+            unlink(public_path($new->img));
+        }
+
         News::find($id)->delete();
-        return redirect()->route('admin.news.list')->with('success', 'Xoa sản phẩm thành công');
+        return redirect()->route('admin.news.list')->with('success', 'Xóa tin tức thành công');
     }
 }

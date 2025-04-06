@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Controllers\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class AuthAdmin
     {
         
         if(Auth::check()){
-            if(Auth::user()->utype === 'ADM') {
+            if(Auth::user()->role === 'admin') {
                 return $next($request);
             } else {
                 session()->flush();
