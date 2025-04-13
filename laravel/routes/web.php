@@ -23,7 +23,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-   
+    // product
     Route::get('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');;
