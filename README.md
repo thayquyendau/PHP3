@@ -6,6 +6,12 @@
 - **lab1**: Bài tập 1 - [Mô tả ngắn về lab1]
 - **lab2**: Bài tập 2 - [Mô tả ngắn về lab2]
 - **lab3**: Bài tập 3 - [Mô tả ngắn về lab3]
+- **lab4**: Bài tập 4 - [Mô tả ngắn về lab1]
+- **lab5**: Bài tập 5 - [Mô tả ngắn về lab2]
+- **lab6**: Bài tập 6 - [...]
+- **lab7**: Bài tập 7 - [gửi mail]
+- **lab8**: Bài tập 8 - [api]
+
 - **laravel**: Dự án Laravel - [Để học tập và test demo]
 - **noteDB**: Ghi chú về cơ sở dữ liệu
 
