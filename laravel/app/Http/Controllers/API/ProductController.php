@@ -24,6 +24,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'id_category' => 'required|numeric|min:1'
         ]);
 
         $product = Product::create($validated);
@@ -44,6 +45,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'id_category' => 'required|numeric|min:1'
         ]);
 
         $product->update($validated);

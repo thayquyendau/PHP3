@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Middleware;
+namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +17,10 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
+        // dd(Auth::guard('web')->user());
         if(Auth::check()){
-            if(Auth::user()->role === 'admin') {
+           
+            if(Auth::user()->role == 'admin') {
                 return $next($request);
             } else {
                 session()->flush();

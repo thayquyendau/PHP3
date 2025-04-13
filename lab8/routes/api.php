@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\LoaiSanPhamController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\LoaiSanPhamController;
 
 
 // products

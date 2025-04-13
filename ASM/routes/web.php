@@ -5,10 +5,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Middleware\AuthAdmin;
-use Illuminate\Container\Attributes\Auth;
+use App\Http\Middleware\AuthAdmin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use PharIo\Manifest\Author;
 
 // Route::get('/', function () {
 //     return view('home');
@@ -29,9 +30,11 @@ Route::post('/forgot-password', [UserController::class, 'sendResetLinkEmail'])->
 Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
-
+// Route::get('/test-auth', function () {
+//     dd(Auth::check(), Auth::user());
+// });
 //Midedleware
-Route::middleware([AuthAdmin::class, 'handle'])->group(function () {
+Route::middleware(['web'])->prefix('admin')->group(function () {
     // Quản lí tin tức
     Route::get('/news', [NewsController::class, 'index'])->name('admin.news.list');
     Route::get('/news-add', [NewsController::class, 'create'])->name('admin.news.add');

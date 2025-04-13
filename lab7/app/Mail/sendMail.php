@@ -9,32 +9,27 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class GuiMail extends Mailable
+class sendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public $details;
-    public function __construct($details)
-    {
-        $this->details = $details;
+    public $subjectText;
+    public $contentText;
+    public $file;
+    public function __construct($subject, $content, $image = null)
+    {   
+        $this->subjectText = $subject;
+        $this->contentText = $content;
+        $this->file = $image;
     }
 
-
-    public function build()
-    {
-        return $this->subject('Thông báo từ Laravel')
-                    ->view('emails.test-email');
-    }
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Gui Mail',
+            // subject: 'Send Mail',
         );
     }
 
@@ -44,7 +39,8 @@ class GuiMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails/test-email',
+            // view: 'email.send',
+          
         );
     }
 
@@ -56,5 +52,16 @@ class GuiMail extends Mailable
     public function attachments(): array
     {
         return [];
+    }
+
+    public function build(){
+        $email = $this->subject($this->subjectText)->view('email.content');
+        if($this->file) {
+            $email->attach($this->file->getRealPath(), [
+                'as' => $this->file->getClientOriginalName(),
+                'mime' => $this->file->getMimeType()
+            ]);
+        }
+        return $email;
     }
 }

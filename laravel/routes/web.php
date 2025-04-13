@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,8 +15,10 @@ Route::get('/dashboard', function () {
 
  // Product
  Route::get('/product', [ProductController::class, 'index'])->middleware(['auth.basic'])->name('products');
+ Route::get('/send-email', [MailController::class, 'index']);
+ Route::post('/sended-email', [MailController::class, 'sendEmail'])->name('send.email');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
