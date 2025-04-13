@@ -31,7 +31,7 @@ Route::get('/reset-password/{token}', [UserController::class, 'showResetPassword
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
 //Midedleware
-Route::middleware(['web'])->prefix('admin')->group(function () {
+Route::middleware(['auth', AuthAdmin::class])->prefix('admin')->group(function () {
     // Quản lí tin tức
     Route::get('/news', [NewsController::class, 'index'])->name('admin.news.list');
     Route::get('/news-add', [NewsController::class, 'create'])->name('admin.news.add');
