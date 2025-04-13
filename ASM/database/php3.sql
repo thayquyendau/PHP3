@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 28, 2025 lúc 11:45 AM
+-- Thời gian đã tạo: Th4 13, 2025 lúc 06:47 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -79,8 +79,8 @@ CREATE TABLE `cache_locks` (
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Công nghệ', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
+(1, 'Công nghệ', '2025-03-27 15:13:44', '2025-04-06 10:48:23'),
 (2, 'Kinh doanh', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
 (3, 'Giáo dục', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
 (4, 'Sức khỏe', '2025-03-27 15:13:44', '2025-03-27 15:13:44'),
@@ -1170,11 +1170,11 @@ CREATE TABLE `news` (
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `author` varchar(100) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `status` enum('draft','published') DEFAULT 'draft',
   `img` varchar(10000) DEFAULT NULL,
-  `views` int(11) NOT NULL
+  `views` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1182,16 +1182,20 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `id_category`, `title`, `content`, `author`, `created_at`, `updated_at`, `status`, `img`, `views`) VALUES
-(21, 1, 'AI và Tương Lai của Công Nghệ Y Tế', 'Bài viết phân tích cách AI đang thay đổi ngành y tế, từ chẩn đoán bệnh đến điều trị...', 'Hoàng Văn F', '2025-03-28 08:00:00', '2025-03-28 17:24:46', 'published', 'https://bna.1cdn.vn/2024/08/13/anh-minh-hoa..jpg', 123),
+(21, 1, 'AI và Tương Lai của Công Nghệ Y Tế', 'Bài viết phân tích cách AI đang thay đổi ngành y tế, từ chẩn đoán bệnh đến điều trị...', 'Hoàng Văn Tuấn', '2025-03-28 08:00:00', '2025-04-06 17:46:46', 'published', 'https://bna.1cdn.vn/2024/08/13/anh-minh-hoa..jpg', 124),
 (22, 2, 'Cách Quản Lý Tài Chính Doanh Nghiệp Hiệu Quả', 'Hướng dẫn các phương pháp quản lý tài chính giúp doanh nghiệp tối ưu hóa lợi nhuận...', 'Nguyễn Thị G', '2025-03-28 09:15:00', '2025-03-28 17:30:38', 'published', 'https://cloudoffice.com.vn/assetmanager/liveEditer/nguy%C3%AAn%20t%E1%BA%AFc%20quan%20tr%E1%BB%8Dng%20%C4%91%E1%BB%83%20qu%E1%BA%A3n%20l%C3%BD%20tc.png', 45),
 (23, 3, 'Kỹ Năng Ghi Chép Hiệu Quả Cho Học Sinh', 'Chia sẻ các mẹo ghi chép bài giảng giúp học sinh tiếp thu kiến thức tốt hơn...', 'Trần Văn H', '2025-03-28 10:30:00', '2025-03-28 17:29:50', 'published', 'https://eduforlife.edu.vn/wp-content/uploads/2022/11/Sketchnote-600x400.jpg', 36),
 (24, 4, 'Thực Đơn Ăn Uống Lành Mạnh Cho Người Bận Rộn', 'Gợi ý thực đơn dinh dưỡng cho những người có lịch trình bận rộn nhưng vẫn muốn duy trì sức khỏe...', 'Lê Thị I', '2025-03-28 11:45:00', '2025-03-28 17:26:10', 'published', 'https://anduocmart.com/wp-content/uploads/2022/09/1-3.png', 12),
 (25, 5, 'Hành Trình Khám Phá Đà Lạt Mộng Mơ', 'Kể lại trải nghiệm du lịch tại Đà Lạt với những địa điểm check-in đẹp và món ăn đặc sản...', 'Phạm Văn K', '2025-03-28 13:00:00', '2025-03-28 17:30:33', 'published', 'https://bazanxanh.com/wp-content/uploads/2018/12/Gioi-thieu-khu-du-lich-Langbiang-o-Da-Lat-hinh1.jpg', 56),
-(26, 1, 'Blockchain và Ứng Dụng Trong Tài Chính', 'Tìm hiểu cách blockchain đang cách mạng hóa ngành tài chính toàn cầu...', 'Ngô Thị L', '2025-03-29 09:00:00', '2025-03-28 17:27:14', 'published', 'https://media.tapchitaichinh.vn/images/upload/duongthanhhai/04172019/ung-dung-blockchain-trong-tai-chinh.jpg', 74),
+(26, 1, 'Blockchain và Ứng Dụng Trong Tài Chính', 'Tìm hiểu cách blockchain đang cách mạng hóa ngành tài chính toàn cầu...', 'Ngô Thị L', '2025-03-29 09:00:00', '2025-04-06 10:35:14', 'published', 'https://media.tapchitaichinh.vn/images/upload/duongthanhhai/04172019/ung-dung-blockchain-trong-tai-chinh.jpg', 74),
 (27, 2, 'Tầm Quan Trọng của Văn Hóa Doanh Nghiệp', 'Phân tích vai trò của văn hóa doanh nghiệp trong việc thu hút nhân tài và phát triển bền vững...', 'Đỗ Văn M', '2025-03-29 10:15:00', '2025-03-28 17:37:24', 'published', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP7Oc1U_C9EboPVXDjrR3LLQCPAUNx9lkPdQ&s', 36),
 (28, 3, 'Học Online: Lợi Ích và Thách Thức', 'Đánh giá ưu, nhược điểm của việc học trực tuyến trong thời đại số hóa...', 'Bùi Thị N', '2025-03-29 11:30:00', '2025-03-28 17:30:42', 'published', 'https://baodongkhoi.vn/image/ckeditor/2024/20240704/files/hoc%20truc%20tuyen1.png', 67),
-(29, 4, 'Tầm Quan Trọng của Giấc Ngủ Đối Với Sức Khỏe', 'Nghiên cứu về tác động của giấc ngủ đến sức khỏe tinh thần và thể chất...', 'Vũ Văn P', '2025-03-29 14:00:00', '2025-03-28 17:28:25', 'published', 'https://aqualife.vn/wp-content/uploads/tam-quan-trong-cua-giac-ngu.jpg', 60),
-(30, 5, 'Top 5 Bãi Biển Đẹp Nhất Đông Nam Á', 'Danh sách các bãi biển đẹp tại Đông Nam Á, từ Phuket đến Bali...', 'Trương Thị Q', '2025-03-29 15:20:00', '2025-03-28 17:29:45', 'published', 'https://vcdn1-dulich.vnecdn.net/2018/05/02/tl-horizontal-main-5974-1525249399.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=6E1izuUrumMzDrgCeGybsQ', 66);
+(29, 4, 'Tầm Quan Trọng của Giấc Ngủ Đối Với Sức Khỏe', 'Nghiên cứu về tác động của giấc ngủ đến sức khỏe tinh thần và thể chất...', 'Vũ Văn P', '2025-03-29 14:00:00', '2025-03-28 17:28:25', 'published', 'https://aqualife.vn/wp-content/uploads/tam-quan-trong-cua-giac-ngu.jpg', 63),
+(30, 5, 'Top 5 Bãi Biển Đẹp Nhất Đông Nam Á', 'Danh sách các bãi biển đẹp tại Đông Nam Á, từ Phuket đến Bali...', 'Trương Thị Q', '2025-03-29 15:20:00', '2025-03-28 20:03:46', 'published', 'https://vcdn1-dulich.vnecdn.net/2018/05/02/tl-horizontal-main-5974-1525249399.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=6E1izuUrumMzDrgCeGybsQ', 69),
+(39, 2, 'Giày adisdas chính hãng bị sập giá ngay trong đêm', 'Các loại giày adisdas đồng loạt giảm giá khiến cho số lượng mở bán tràn lan trên thị trường', 'Adidas Store', '2025-04-04 15:33:56', '2025-04-06 06:02:02', 'draft', 'uploads/news/1743919244_Annotation 2025-02-27 211401.png', 5),
+(47, 5, 'ádas', 'ádasd', 'ádas', '2025-04-06 17:38:19', NULL, 'draft', 'uploads/news/1743935899_sg-11134201-7rbk5-lmzewxxfis7u0b.jfif', 0),
+(48, 1, '123', '1231', '123', '2025-04-06 17:41:44', NULL, 'draft', 'uploads/news/1743936104_tải xuống.jfif', 0),
+(49, 1, '123123', '1231', '123', '2025-04-06 17:47:16', '2025-04-06 17:47:24', 'draft', 'uploads/news/1743936436_z6229536163944_65913333a45e14ff66d59928940d75ad.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -1211,7 +1215,37 @@ CREATE TABLE `password_reset_tokens` (
 
 INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 ('a@gmail.com', '$2y$12$drg67qkY/KC7MQNMBNmzyeA8FRnu1sbgA1HSjZhZWnaLfExtMW48G', '2025-03-27 00:14:06'),
-('jisunn18@gmail.com', '$2y$12$ffGkaK27tO/I.Gu6o2Ie9OyZK.jWutpYkFzQLjfN1MHIjo8fs3sDG', '2025-03-28 01:42:20');
+('duongdtpa00194@gmail.com', '$2y$12$vwi4UwKg/H6BLxZVqdXGE.Yk8qjx.9zqSrB1DYS84Dgn9D33Fues6', '2025-03-28 06:11:22'),
+('jisunn18@gmail.com', '$2y$12$ffGkaK27tO/I.Gu6o2Ie9OyZK.jWutpYkFzQLjfN1MHIjo8fs3sDG', '2025-03-28 01:42:20'),
+('quyendau1603@gmail.com', '$2y$12$iVpez8CtGj6cb/mz5a6CBeFlBRwd0taM9p52cMboJKnVyWgu/tCiS', '2025-04-08 17:30:26'),
+('quyendvpa00242@gmail.com', '$2y$12$mrfYaRSChmmomUbqc0V1B.Gp0EzXQCUD19jP5KaJ0fbrHVIdL.zi6', '2025-03-31 23:09:16'),
+('tuanvu280605@gmail.com', '$2y$12$5Y9ROaXK8Tv4ajTAPdHauOOvXbcFLjqMHSyUifFKefBti0JaIm8Q2', '2025-03-28 06:09:04');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `image` varchar(10000) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `products`
+--
+
+INSERT INTO `products` (`id`, `id_category`, `name`, `description`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
+(8, 1, 'ngu', 'bộ trưởng hài cốt', 11.00, 99, 'images/1743664011_thuyhm6.JPG', '2025-04-02 23:20:20', '2025-04-12 00:00:55'),
+(10, 1, 'LOGO_FPT', 'xyz', 100000.00, 122, 'images/1743664124_Annotation 2025-02-27 211401.png', '2025-04-03 00:08:44', '2025-04-03 00:08:44');
 
 -- --------------------------------------------------------
 
@@ -1233,7 +1267,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('lAtvAsV3iWgjnzviOPyCubBZ3wkVfkwiIGcWPZXs', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUWN0TUU3ZWNtak5weUVuV0hVb3Z5dU51czBpejRwWHdZaGdhZlpOQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NDoidXNlciI7YTo0OntzOjI6ImlkIjtpOjQ7czo0OiJuYW1lIjtzOjEyOiLEkOG6oXQgSmlzdW4iO3M6NToiZW1haWwiO3M6MTg6Imppc3VubjE4QGdtYWlsLmNvbSI7czo0OiJyb2xlIjtzOjQ6InVzZXIiO319', 1743158417);
+('BS5Sw2PFhOdm5bFdBHcvhKvgyh8JEVq3Hy9b9lar', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTkVKZHpKZmhnTzEyY09zSGo0SThRSzZLZ3RQaHJHYXZrbk0wS0dYRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mzt9', 1744441569),
+('Mmz7S9NJxxBkjuf5Z9TbF2KiqhbAIYv1mIWCNVm0', NULL, '127.0.0.1', 'PostmanRuntime/7.39.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSmV5dXN1NVR6VENWV3ZTYTVVcXhjVUdibjRpSVRLZFNuaFNYRGhlaSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6OTAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744442062),
+('wYmBu965yXQiOdKtRHYhhGGYUC5nCkBjgSV24LUe', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVk02M3BOUDJJakRDazFhTG45Z3FWOGtNSXZqd0hSUmV4R01xSFBYSSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZW5kLWVtYWlsIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1744362667);
 
 -- --------------------------------------------------------
 
@@ -1368,9 +1404,10 @@ INSERT INTO `thanhvien` (`id`, `hoTen`, `password`, `email`, `randomKey`, `activ
 CREATE TABLE `tin` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tieude` varchar(255) NOT NULL,
-  `xem` int(11) NOT NULL,
+  `xem` int(11) DEFAULT NULL,
   `ngayDang` date DEFAULT NULL,
-  `idLoai` int(11) NOT NULL,
+  `urlHinh` varchar(1000) DEFAULT NULL,
+  `idLoai` int(11) DEFAULT NULL,
   `tomTat` text DEFAULT NULL,
   `noiDung` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1381,47 +1418,47 @@ CREATE TABLE `tin` (
 -- Đang đổ dữ liệu cho bảng `tin`
 --
 
-INSERT INTO `tin` (`id`, `tieude`, `xem`, `ngayDang`, `idLoai`, `tomTat`, `noiDung`, `created_at`, `updated_at`) VALUES
-(1, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 12, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
-(2, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 12, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
-(3, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 13, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
-(4, 'Kỷ lục thời chiến', 850, '2025-03-04', 14, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
-(5, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 15, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
-(6, 'Cách làm số mi', 750, '2025-03-06', 13, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
-(7, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
-(8, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 14, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
-(9, 'BCI Asia gives architecture awards', 600, '2025-03-09', 15, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
-(10, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 15, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
-(11, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
-(12, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
-(13, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
-(14, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
-(15, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
-(16, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
-(17, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
-(18, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
-(19, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
-(20, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
-(21, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
-(22, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
-(23, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
-(24, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
-(25, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
-(26, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
-(27, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
-(28, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
-(29, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
-(30, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
-(31, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
-(32, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
-(33, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
-(34, 'Kỷ lục thời chiến', 850, '2025-03-04', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
-(35, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
-(36, 'Cách làm số mi', 750, '2025-03-06', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
-(37, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
-(38, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
-(39, 'BCI Asia gives architecture awards', 600, '2025-03-09', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
-(40, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL);
+INSERT INTO `tin` (`id`, `tieude`, `xem`, `ngayDang`, `urlHinh`, `idLoai`, `tomTat`, `noiDung`, `created_at`, `updated_at`) VALUES
+(2, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', 'logo.jpg', 12, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, '2025-03-30 07:03:38'),
+(3, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', '', 13, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(4, 'Kỷ lục thời chiến', 850, '2025-03-04', '', 14, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(5, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', '', 15, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(6, 'Cách làm số mi', 750, '2025-03-06', '', 13, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(7, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', '', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(8, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', '', 14, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(9, 'BCI Asia gives architecture awards', 600, '2025-03-09', '', 15, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(10, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', '', 15, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(11, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', '', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(12, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', '', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(13, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', '', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(14, 'Kỷ lục thời chiến', 850, '2025-03-04', '', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(15, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', '', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(16, 'Cách làm số mi', 750, '2025-03-06', '', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(17, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', '', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(18, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', '', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(19, 'BCI Asia gives architecture awards', 600, '2025-03-09', '', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(20, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', '', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(21, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', '', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(22, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', '', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(23, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', '', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(24, 'Kỷ lục thời chiến', 850, '2025-03-04', '', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(25, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', '', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(26, 'Cách làm số mi', 750, '2025-03-06', '', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(27, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', '', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(28, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', '', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(29, 'BCI Asia gives architecture awards', 600, '2025-03-09', '', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(30, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', '', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(31, 'Hoa Đà Quý rang rõ núi lửa Chu Đăng Ya', 1000, '2025-03-01', '', 1, 'Bài viết mô tả hiện tượng núi lửa Chu Đăng Ya được quan sát rõ ràng từ Hoa Đà Quý.', '<p>Hoa Đà Quý, một địa điểm nổi tiếng với cảnh quan thiên nhiên hùng vĩ, đã trở thành tâm điểm chú ý khi núi lửa Chu Đăng Ya hoạt động mạnh mẽ. Hiện tượng này thu hút hàng nghìn du khách đến chiêm ngưỡng và khám phá vẻ đẹp của thiên nhiên.</p>', NULL, NULL),
+(32, 'Poet Huu Loan dies at age 95', 950, '2025-03-02', '', 1, 'Tin tức về sự ra đi của nhà thơ nổi tiếng Huu Loan ở tuổi 95.', '<p>Nhà thơ Hữu Loan, người đã để lại dấu ấn sâu đậm trong làng thơ Việt Nam với những tác phẩm đậm chất nhân văn, đã qua đời ở tuổi 95 tại quê nhà. Ông được biết đến với bài thơ \"Màu tím hoa sim\" nổi tiếng.</p>', NULL, NULL),
+(33, 'Võ \"kịch câm\" tại châu Âu', 900, '2025-03-03', '', 2, 'Giới thiệu về nghệ thuật võ kịch câm độc đáo đang được trình diễn tại châu Âu.', '<p>Võ kịch câm là một loại hình nghệ thuật kết hợp giữa võ thuật và biểu diễn không lời, mang đến những câu chuyện đầy cảm xúc qua ngôn ngữ cơ thể. Các buổi trình diễn tại châu Âu đã thu hút đông đảo khán giả yêu nghệ thuật.</p>', NULL, NULL),
+(34, 'Kỷ lục thời chiến', 850, '2025-03-04', '', 3, 'Báo cáo về các kỷ lục đáng nhớ được thiết lập trong thời kỳ chiến tranh.', '<p>Trong thời kỳ chiến tranh, nhiều kỷ lục ấn tượng đã được ghi nhận, từ những chiến công oanh liệt trên chiến trường đến những câu chuyện vượt qua nghịch cảnh của con người. Bài viết này tổng hợp những kỷ lục nổi bật nhất.</p>', NULL, NULL),
+(35, 'Nguyễn thục toản phấn trén thế giới', 800, '2025-03-05', '', 4, 'Câu chuyện về Nguyễn Thục Toản và thành tích nổi bật trên toàn cầu.', '<p>Nguyễn Thục Toản, một tài năng trẻ của Việt Nam, đã ghi dấu ấn trên đấu trường quốc tế với những thành tựu đáng kinh ngạc trong lĩnh vực khoa học và công nghệ. Câu chuyện của cô là nguồn cảm hứng cho thế hệ trẻ.</p>', NULL, NULL),
+(36, 'Cách làm số mi', 750, '2025-03-06', '', 2, 'Hướng dẫn đơn giản để tự làm món số mi thơm ngon tại nhà.', '<p>Số mi là món ăn truyền thống thơm ngon, dễ làm. Bài viết này sẽ hướng dẫn bạn từng bước để tạo ra món số mi hấp dẫn với nguyên liệu đơn giản như bột mì, trứng và gia vị, phù hợp cho bữa ăn gia đình.</p>', NULL, NULL),
+(37, 'Xem tivi nhiều, ra nghiện đá sốm', 700, '2025-03-07', '', 1, 'Cảnh báo về tác hại của việc xem tivi quá nhiều dẫn đến nghiện đá sốm.', '<p>Việc xem tivi quá nhiều không chỉ ảnh hưởng đến sức khỏe mắt mà còn có thể dẫn đến các thói quen không lành mạnh như nghiện đá sốm. Các chuyên gia khuyến cáo nên kiểm soát thời gian xem tivi và tham gia các hoạt động ngoài trời.</p>', NULL, NULL),
+(38, 'Ngưòi hùng trong cuộc hành ky dieu ở New York', 650, '2025-03-08', '', 3, 'Câu chuyện về người hùng xuất hiện trong cuộc hành trình kỳ diệu tại New York.', '<p>Một người hùng vô danh đã xuất hiện trong cuộc hành trình đầy cảm hứng tại New York, mang đến hy vọng và niềm tin cho cộng đồng. Câu chuyện của anh đã lan truyền rộng rãi và truyền cảm hứng cho hàng triệu người.</p>', NULL, NULL),
+(39, 'BCI Asia gives architecture awards', 600, '2025-03-09', '', 4, 'Tin tức về lễ trao giải kiến trúc uy tín do BCI Asia tổ chức.', '<p>BCI Asia đã tổ chức lễ trao giải kiến trúc thường niên, vinh danh những công trình nổi bật và sáng tạo nhất trong khu vực. Sự kiện thu hút sự tham gia của nhiều kiến trúc sư hàng đầu từ khắp nơi trên thế giới.</p>', NULL, NULL),
+(40, 'Đề nhàn biệt mắt ông tổ hay xâu?', 550, '2025-03-10', '', 4, 'Thảo luận về câu hỏi liệu đề nhàn có phải là mắt ông tổ hay xâu.', '<p>Bài viết thảo luận về một vấn đề thú vị trong văn hóa dân gian: liệu \"đề nhàn\" có thực sự là \"mắt ông tổ\" hay chỉ là một cách hiểu sai lệch? Các ý kiến trái chiều được phân tích chi tiết để làm sáng tỏ vấn đề.</p>', NULL, NULL),
+(41, 'dăng cấp thợ thây len tiếng', NULL, NULL, 'image.jpg', 1, '12312', NULL, '2025-03-30 06:57:33', '2025-03-30 06:57:33');
 
 -- --------------------------------------------------------
 
@@ -1446,10 +1483,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'Nguyễn Văn A', 'quyendvpa00242@gmail.com', '0000-00-00 00:00:00', '$2y$12$2HjKUpmKW4L.iCm9e6YOx.7k.m1LNuE1OVX/hTykixKelV9DiE1fq', NULL, '2025-03-27 06:57:29', '2025-03-27 00:42:46'),
+(1, 'admin', 'Nguyễn Văn A', 'quyendvpa00242@gmail.com', '0000-00-00 00:00:00', '$2y$12$2HjKUpmKW4L.iCm9e6YOx.7k.m1LNuE1OVX/hTykixKelV9DiE1fq', NULL, '2025-03-27 06:57:29', '2025-03-27 00:42:46'),
 (2, 'user', 'Hoàng Thúc khang', 'khanggo123m@gmail.com', NULL, '$2y$12$ABbl9IAd7heGIDZv20lXJ.i0LShhNcLAaeE7CKaAL6yjPTWxrOBdy', NULL, '2025-03-28 01:06:35', '2025-03-28 01:06:35'),
 (3, 'user', 'Đậu Quyền', 'quyendau1603@gmail.com', NULL, '$2y$12$q5Rt62ttRG/giEfvryXRa.Ax8q0oTZwWAyomhfFxj2cQCOUUivG.O', NULL, '2025-03-28 01:15:23', '2025-03-28 01:58:19'),
-(4, 'user', 'Đạt Jisun', 'jisunn18@gmail.com', NULL, '$2y$12$Tp2cRc2ENQGXdJlGqEcCFOOsmitF0MBgoSFLDrczsEwMW0ayr4/yC', NULL, '2025-03-28 01:40:47', '2025-03-28 01:40:47');
+(4, 'user', 'Đạt Jisun', 'jisunn18@gmail.com', NULL, '$2y$12$Tp2cRc2ENQGXdJlGqEcCFOOsmitF0MBgoSFLDrczsEwMW0ayr4/yC', NULL, '2025-03-28 01:40:47', '2025-03-28 01:40:47'),
+(5, 'user', 'Tuấn Vũ', 'tuanvu280605@gmail.com', NULL, '$2y$12$frtL7BCBasVQ4hD7w2pmZ.IpmJO80QaSBi7JV3WZoezmfO7ABcX8q', NULL, '2025-03-28 06:07:13', '2025-03-28 06:07:13'),
+(6, 'user', 'Tùng Duong', 'duongdtpa00194@gmail.com', NULL, '$2y$12$39.iyccjwvEjRxOZb46hIOhMITylCh7UVV.5uIm4pX9tETQO.1Yl6', NULL, '2025-03-28 06:11:11', '2025-03-28 06:11:11'),
+(7, 'user', 'Khang Nguyễn', 'khanggo123n@gmail.com', NULL, '$2y$12$WDHYgvPZee45PFcjg790De7DVGVrGMYL47iwKplaI3C6lbF1w9Nuq', NULL, '2025-03-28 22:31:59', '2025-03-28 22:31:59');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -1471,7 +1511,8 @@ ALTER TABLE `cache_locks`
 -- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`id`);
 
 --
 -- Chỉ mục cho bảng `comments`
@@ -1536,6 +1577,13 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Chỉ mục cho bảng `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_loai` (`id_category`);
+
+--
 -- Chỉ mục cho bảng `sessions`
 --
 ALTER TABLE `sessions`
@@ -1570,7 +1618,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `comments`
@@ -1612,7 +1660,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT cho bảng `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `thanhvien`
@@ -1624,13 +1678,13 @@ ALTER TABLE `thanhvien`
 -- AUTO_INCREMENT cho bảng `tin`
 --
 ALTER TABLE `tin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -1654,6 +1708,12 @@ ALTER TABLE `dienthoai`
 --
 ALTER TABLE `news`
   ADD CONSTRAINT `fk_category` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
+
+--
+-- Các ràng buộc cho bảng `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `fk_loai` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
