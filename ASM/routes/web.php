@@ -30,9 +30,6 @@ Route::post('/forgot-password', [UserController::class, 'sendResetLinkEmail'])->
 Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('password.update');
 
-// Route::get('/test-auth', function () {
-//     dd(Auth::check(), Auth::user());
-// });
 //Midedleware
 Route::middleware(['web'])->prefix('admin')->group(function () {
     // Quản lí tin tức
